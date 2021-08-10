@@ -12,7 +12,7 @@ function Catalog() {
         fetch("https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/categories/list?lang=en&country=asia2", {
             "method": "GET",
             "headers": {
-                "x-rapidapi-key": "ef24b3f69dmsh1705ad4c20add74p1d6f35jsncc375f062f3f",
+                "x-rapidapi-key": "d3216d8970mshf3b76759723be01p1750f4jsnc56c974fd1e0",
                 "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com"
             }
         })
@@ -24,10 +24,10 @@ function Catalog() {
     }, [])
 
     useEffect(() => {
-        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "_all" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30", {
+        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30", {
             "method": "GET",
             "headers": {
-                "x-rapidapi-key": "ef24b3f69dmsh1705ad4c20add74p1d6f35jsncc375f062f3f",
+                "x-rapidapi-key": "d3216d8970mshf3b76759723be01p1750f4jsnc56c974fd1e0",
                 "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com"
             }
         })
@@ -46,11 +46,13 @@ function Catalog() {
                         {
                             categories.map((categorie, i) => (
                                 <div className={activeSubCategories === i ? 'catalog-categorie active' : 'catalog-categorie'} onMouseLeave={() => setActiveSubCategories()} onMouseEnter={() => setActiveSubCategories(i)} key={i}>
-                                    <button style={categorieValue === categorie.CategoryValue ? { color: '#c11a2b' } : null} onClick={() => setCategorieValue(categorie.CategoryValue)} className="catalog-categorie-button">{categorie.CatName}</button>
+                                    <button style={categorieValue === categorie.tagCodes[0] ? { color: '#c11a2b' } : null} onClick={() => setCategorieValue(categorie.tagCodes[0])} className="catalog-categorie-button">{categorie.CatName}</button>
                                     <div className="catalog-categorie-subcategories">
                                         {
                                             categorie.CategoriesArray ?
-                                                console.log(categorie.CategoriesArray)
+                                                categorie.CategoriesArray.map((CategoriesItem) => (
+                                                    <button style={categorieValue === CategoriesItem.tagCodes[0] ? { color: '#c11a2b' } : null} onClick={() => setCategorieValue(CategoriesItem.tagCodes[0])} className="catalog-categorie-button">{CategoriesItem.CatName}</button>
+                                                ))
                                                 :
                                                 console.log(categorie.CategoriesArray)
                                         }
