@@ -5,7 +5,6 @@ function Catalog() {
     const [categories, setCategories] = useState([])
     const [products, setProducts] = useState([])
     const [categorieValue, setCategorieValue] = useState()
-    const [activeSubCategories, setActiveSubCategories] = useState()
     console.log(categorieValue);
 
     useEffect(() => {
@@ -19,7 +18,7 @@ function Catalog() {
             .then(response => response.json())
             .then(data => {
                 setCategories(data)
-                console.log(data);
+                // console.log(data);
             })
     }, [])
 
@@ -34,7 +33,7 @@ function Catalog() {
             .then(response => response.json())
             .then(data => {
                 setProducts(data.results)
-                console.log(data);
+                // console.log(data);
             })
     }, [categorieValue])
 
@@ -43,22 +42,36 @@ function Catalog() {
             <div className="container">
                 <div className="catalog-inner inner">
                     <div className="catalog-categories">
+                        <button style={categorieValue === undefined ? { color: '#c11a2b' } : null} onClick={() => setCategorieValue()} className="catalog-categorie-button">All</button>
                         {
-                            categories.map((categorie, i) => (
-                                <div className={activeSubCategories === i ? 'catalog-categorie active' : 'catalog-categorie'} onMouseLeave={() => setActiveSubCategories()} onMouseEnter={() => setActiveSubCategories(i)} key={i}>
-                                    <button style={categorieValue === categorie.tagCodes[0] ? { color: '#c11a2b' } : null} onClick={() => setCategorieValue(categorie.tagCodes[0])} className="catalog-categorie-button">{categorie.CatName}</button>
+                            categories.length > 0 ? (categories.map((categorie, i) => (
+                                <div className="catalog-categorie" key={i}>
+                                    <button style={categorie.tagCodes.length > 0 ? (categorieValue === categorie.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => categorie.tagCodes.length > 0 ? (setCategorieValue(categorie.tagCodes[0])) : null} className="catalog-categorie-button">{categorie.CatName}</button>
                                     <div className="catalog-categorie-subcategories">
                                         {
                                             categorie.CategoriesArray ?
                                                 categorie.CategoriesArray.map((CategoriesItem) => (
-                                                    <button style={categorieValue === CategoriesItem.tagCodes[0] ? { color: '#c11a2b' } : null} onClick={() => setCategorieValue(CategoriesItem.tagCodes[0])} className="catalog-categorie-button">{CategoriesItem.CatName}</button>
+                                                    <div className="catalog-categorie-subcategorie">
+                                                        <div className="catalog-categorie-subcategorie-title">{CategoriesItem.CatName}</div>
+                                                        <div className="catalog-categorie-subcategorie-items">
+                                                            {
+                                                                CategoriesItem.CategoriesArray ? CategoriesItem.CategoriesArray.map((SubCategorieItem) => (
+                                                                    <button style={SubCategorieItem.tagCodes.length > 0 ? (categorieValue === SubCategorieItem.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => SubCategorieItem.tagCodes.length > 0 ? (setCategorieValue(SubCategorieItem.tagCodes[0])) : null} className="catalog-categorie-subcategorie-item">{SubCategorieItem.CatName}</button>
+                                                                ))
+                                                                    :
+                                                                    null
+                                                            }
+                                                        </div>
+                                                    </div>
                                                 ))
                                                 :
-                                                console.log(categorie.CategoriesArray)
+                                                null
                                         }
                                     </div>
                                 </div>
-                            ))
+                            )))
+                            :
+                            null
                         }
                     </div>
                     <div className="catalog-list">
@@ -67,7 +80,14 @@ function Catalog() {
                                 <div className="af">{product.name}</div>
                             ))
                                 :
-                                <div className="hlo">bb</div>
+                                <div className="catalog-list-error">
+                                    <div className="catalog-list-error-title">
+                                        <h1>Connection Failed</h1>
+                                    </div>
+                                    <div className="catalog-list-error-info">
+                                        <p>Could not connect to server <br /> Please check your connection and try again</p>
+                                    </div>
+                                </div>
                         }
                     </div>
                 </div>

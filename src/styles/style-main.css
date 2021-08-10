@@ -84,6 +84,30 @@ header.active{
     display: none;
 }
 
-.catalog-categorie.active .catalog-categorie-subcategories{
+/* .catalog-categorie.active .catalog-categorie-subcategories{
     display: block;
+} */
+
+.catalog-categorie:hover .catalog-categorie-subcategories{
+    display: block;
+}
+
+.catalog-categories{
+    position: relative;
+}
+
+.catalog-categorie-subcategorie{
+    margin-bottom: 20px;
+}
+
+.catalog-categorie-subcategorie-title{
+    margin-bottom: 10px;
+}
+
+.catalog-categorie-subcategories{
+    position: absolute;
+    background-color: var(--background-color);
+    width: 100%;
+    left: 0;
+    right: 0;
 }
