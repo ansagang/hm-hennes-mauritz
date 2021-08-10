@@ -62,3 +62,28 @@ header.active{
 .header-logo img:hover{ 
     animation: logo 1s ease-in-out;
 }
+
+.catalog-categories{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.catalog-categorie-button{
+    border: none;
+    letter-spacing: 1px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.catalog-categorie-button:nth-last-child(1){
+    margin-right: 0;
+}
+
+.catalog-categorie-subcategories{
+    display: none;
+}
+
+.catalog-categorie.active .catalog-categorie-subcategories{
+    display: block;
+}
