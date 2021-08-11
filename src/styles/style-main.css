@@ -111,3 +111,12 @@ header.active{
     left: 0;
     right: 0;
 }
+
+.catalog-menu{
+    display: flex;
+    justify-content: space-between;
+}
+
+.catalog-menu-categories{
+    width: 15%;
+}
