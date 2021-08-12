@@ -70,10 +70,7 @@ header.active{
 }
 
 .catalog-categorie-button{
-    border: none;
-    letter-spacing: 1px;
-    margin-right: 10px;
-    cursor: pointer;
+    margin-right: 20px;
 }
 
 .catalog-categorie-button:nth-last-child(1){
@@ -110,6 +107,9 @@ header.active{
     width: 100%;
     left: 0;
     right: 0;
+    border-bottom: 3px solid var(--title-color);
+    z-index: 3;
+    padding: 0 60px;
 }
 
 .catalog-menu{
@@ -119,4 +119,23 @@ header.active{
 
 .catalog-menu-categories{
     width: 15%;
+}
+
+.catalog-breadcrumbs{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.catalog-menu-categorie-subcategorie-items{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.catalog-menu-categorie-subcategorie{
+    margin-bottom: 20px;
+}
+
+.catalog-categorie-subcategorie-item{
+    margin-right: 15px;
 }

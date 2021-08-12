@@ -1,0 +1,121 @@
+@keyframes text-appear{
+    to{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+@keyframes tag-appear{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes appear-link{
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+
+@keyframes logo-anim{
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes logo-fill{
+    from {
+        fill: transparent;
+    }
+    to {
+        fill: var(--company-color);
+    }
+}
+
+@keyframes hero-background{
+    to{
+        transform:translateX(0%);
+    }
+}
+
+@keyframes form-appear{
+    to{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes skill-bar{
+    from{
+        width: 0%;
+    }
+}
+
+@keyframes card{
+    to{
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes tabs{
+    to{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes center-text-appear{
+    to{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes logo-rotating{
+    from{
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes card-appear{
+    to{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes sidebarlink-appear{
+    to{
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes saving{
+    to{
+        fill:transparent;
+    }
+}
+
+@keyframes link-appear{
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes logo{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(180deg);
+    }
+}
