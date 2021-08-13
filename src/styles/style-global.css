@@ -168,14 +168,12 @@ iframe{
 .sub-title{
     font-size: 16px;
     font-weight: 400;
-    margin-bottom: 10px;
-    line-height: 24px;
+    line-height: 20px;
     color:var(--title-color);
 }
 
 .info{
     font-size: 16px;
-    margin-top: 5px;
     line-height: 20px;
     color: var(--info-color);
     animation: forwards text-appear 0.5s ease-in-out;
@@ -189,4 +187,17 @@ iframe{
     border: none;
     letter-spacing: 1px;
     cursor: pointer;
+}
+
+.link:hover{
+    color: var(--company-color-red);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.note{
+    color: var(--title-color);
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-style: italic;
 }
