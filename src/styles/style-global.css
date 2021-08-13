@@ -133,7 +133,7 @@ iframe{
 }
 
 .container{
-    max-width: 1500px;
+    max-width: 1300px;
     margin: 0 auto;
     padding: 0 15px;
 }
@@ -166,7 +166,7 @@ iframe{
 }
 
 .sub-title{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     margin-bottom: 10px;
     line-height: 24px;

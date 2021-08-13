@@ -49,34 +49,35 @@ function Catalog() {
             <div className="container">
                 <div className="catalog-inner inner">
                     <div className="catalog-categories">
-                        <span style={categorieValue === undefined ? { color: '#c11a2b' } : null} onClick={() => setCategorieValue() || setCategorieName()} className="catalog-categorie-button link">All</span>
+                        <span style={categorieValue ? null : { color: '#c11a2b' }} onClick={() => setCategorieValue() || setCategorieName()} className="catalog-categorie-button link">All</span>
                         {
                             categoriesLoading ? (categories.length > 0 ? (categories.map((categorie, i) => (
                                 <div className="catalog-categorie" key={i}>
                                     <span style={categorie.tagCodes.length > 0 ? (categorieValue === categorie.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => categorie.tagCodes.length > 0 ? (setCategorieValue(categorie.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName()) : null} className="catalog-categorie-button link">{categorie.CatName}</span>
-                                    <div className="catalog-categorie-subcategories">
-                                        {
-                                            categorie.CategoriesArray ?
-                                                categorie.CategoriesArray.map((CategoriesItem) => (
-                                                    <div className="catalog-categorie-subcategorie">
-                                                        {
-                                                            CategoriesItem.CategoriesArray ? (<div className="catalog-categorie-subcategorie-title sub-title"><h1>{CategoriesItem.CatName}</h1></div>) : null
-                                                        }
-                                                        <div className="catalog-categorie-subcategorie-items">
+                                    {
+                                        categorie.CategoriesArray ? (<div className="catalog-categorie-subcategories">
+                                            {
+                                                    categorie.CategoriesArray.map((CategoriesItem) => (
+                                                        <div className="catalog-categorie-subcategorie">
                                                             {
-                                                                CategoriesItem.CategoriesArray ? CategoriesItem.CategoriesArray.map((SubCategorieItem) => (
-                                                                    <span style={SubCategorieItem.tagCodes.length > 0 ? (categorieValue === SubCategorieItem.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => SubCategorieItem.tagCodes.length > 0 ? (setCategorieValue(SubCategorieItem.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName(CategoriesItem.CatName + ' / ' + SubCategorieItem.CatName)) : null} className="catalog-categorie-subcategorie-item link">{SubCategorieItem.CatName}</span>
-                                                                ))
-                                                                    :
-                                                                    null
+                                                                CategoriesItem.CategoriesArray ? (<div className="catalog-categorie-subcategorie-title sub-title"><h1>{CategoriesItem.CatName}</h1></div>) : null
                                                             }
+                                                            <div className="catalog-categorie-subcategorie-items">
+                                                                {
+                                                                    CategoriesItem.CategoriesArray ? CategoriesItem.CategoriesArray.map((SubCategorieItem) => (
+                                                                        <span style={SubCategorieItem.tagCodes.length > 0 ? (categorieValue === SubCategorieItem.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => SubCategorieItem.tagCodes.length > 0 ? (setCategorieValue(SubCategorieItem.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName(CategoriesItem.CatName + ' / ' + SubCategorieItem.CatName)) : null} className="catalog-categorie-subcategorie-item link">{SubCategorieItem.CatName}</span>
+                                                                    ))
+                                                                        :
+                                                                        null
+                                                                }
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                ))
-                                                :
-                                                null
-                                        }
-                                    </div>
+                                                    ))
+                                            }
+                                        </div>)
+                                        :
+                                        null
+                                    }
                                 </div>
                             )))
                                 :
@@ -133,8 +134,16 @@ function Catalog() {
                                 catalogLoading ? (products ? <div className="catalog-products-list list">
                                     {
                                         products.map((product) => (
-                                            <div className="catalog-product">
-                                                {product.name}
+                                            <div style={categorieValue ? {maxWidth:'33%'} : {maxWidth:'24%'}} className="catalog-product-card">
+                                                <div className="catalog-product-card-top">
+                                                    <div className="catalog-product-card-img">
+                                                        <img src={product.images[0].url} alt="" className="catalog-product-card-img-default" />
+                                                        <img src={product.defaultArticle.logoPicture[0].url} alt="" className="catalog-product-card-img-onhover" />
+                                                    </div>
+                                                </div>
+                                                <div className="catalog-product-card-title sub-title">
+                                                    <h1>{product.name}</h1>
+                                                </div>
                                             </div>
                                         ))
                                     }
