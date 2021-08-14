@@ -1,6 +1,11 @@
 import { useState } from "react"
 import { useEffect } from "react"
-import Loading from '../comp/Loading'
+// import Loading from '../comp/Loading'
+import { Link } from "react-router-dom"
+import { useContext } from "react";
+import { GlobalContext } from "../context/GlobalState";
+import menu from '../img/menu.svg'
+import menuClose from '../img/menu-close.svg'
 
 function Catalog() {
     const [categories, setCategories] = useState([])
@@ -10,13 +15,16 @@ function Catalog() {
     const [subCategorieName, setSubCategorieName] = useState()
     const [catalogLoading, setCatalogLoading] = useState(false)
     const [categoriesLoading, setCategoriesLoading] = useState(false)
+    const [sideBar, setSideBar] = useState(false)
+    const [pageSize, setPageSize] = useState(30) 
+    const body = document.querySelector('body')
     console.log(categorieValue);
 
     useEffect(() => {
         fetch("https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/categories/list?lang=en&country=asia2", {
             "method": "GET",
             "headers": {
-                "x-rapidapi-key": "23f52bc88dmsha23f13938582cf8p1caaa1jsn1e3173d72031",
+                "x-rapidapi-key": "79de731607mshcee0733450a819cp167e97jsn947d06a4e960",
                 "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com"
             }
         })
@@ -29,31 +37,36 @@ function Catalog() {
     }, [])
 
     useEffect(() => {
-        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30", {
+        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=" + pageSize + "&categories=" + categorieValue + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=" + pageSize + "", {
             "method": "GET",
             "headers": {
-                "x-rapidapi-key": "23f52bc88dmsha23f13938582cf8p1caaa1jsn1e3173d72031",
+                "x-rapidapi-key": "79de731607mshcee0733450a819cp167e97jsn947d06a4e960",
                 "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com"
             }
         })
             .then(response => response.json())
             .then(data => {
-                setProducts(data.results)
+                setProducts(data)
                 setCatalogLoading(true)
                 console.log(data);
             })
-    }, [categorieValue])
+    }, [categorieValue, pageSize])
+
+    const { removeCardFromFavouritesList, addCardToFavouritesList, favouritesList } = useContext(GlobalContext)
+
+    console.log(products);
 
     return (
-        <div className="catalog">
+        <section className="catalog">
             <div className="container">
                 <div className="catalog-inner inner">
-                    <div className="catalog-categories">
-                        <span style={categorieValue ? null : { color: '#c11a2b' }} onClick={() => setCategorieValue() || setCategorieName()} className="catalog-categorie-button link">All</span>
+                    <div className={sideBar ? 'catalog-categories active' : 'catalog-categories'}>
+                        <button onClick={() => setSideBar(false) || body.classList.remove('lock')} className="catalog-categories-menu-close"><img src={menuClose} alt="" /></button>
+                        <span style={categorieValue ? null : { color: '#c11a2b' }} onClick={() => setCategorieValue() || setCategorieName()} className={categorieValue === undefined ? 'catalog-categorie-button link active' : 'catalog-categorie-button link'}>All</span>
                         {
                             categoriesLoading ? (categories.length > 0 ? (categories.map((categorie, i) => (
-                                <div className="catalog-categorie" key={i}>
-                                    <span style={categorie.tagCodes.length > 0 ? (categorieValue === categorie.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => categorie.tagCodes.length > 0 ? (setCategorieValue(categorie.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName()) : null} className="catalog-categorie-button link">{categorie.CatName}</span>
+                                <div className={categorieValue === categorie.tagCodes[0] ? 'catalog-categorie active' : 'catalog-categorie'} key={i}>
+                                    <span className="catalog-categorie-button link" style={categorie.tagCodes.length > 0 ? (categorieValue === categorie.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => categorie.tagCodes.length > 0 ? (setCategorieValue(categorie.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName()) : null}>{categorie.CatName}</span>
                                     {
                                         categorie.CategoriesArray ? (<div className="catalog-categorie-subcategories">
                                             {
@@ -87,7 +100,7 @@ function Catalog() {
                         }
                     </div>
                     <div className="catalog-breadcrumbs info">
-                        <h1>{categorieName ? (subCategorieName ? (categorieName + ' / ' + subCategorieName) : (categorieName)) : null}</h1>
+                        <h1>{categorieName ? (subCategorieName ? (categorieName + ' / ' + subCategorieName) : (categorieName)) : 'All'}</h1>
                     </div>
                     <div className="catalog-menu">
                         {
@@ -128,25 +141,54 @@ function Catalog() {
                                 :
                                 null
                         }
-                        <div style={categorieValue ? { width: '80%' } : { width: '100%' }} className="catalog-products">
-                            <div className="catalog-products-filter"></div>
+                        <div style={categorieValue ? { width: 'calc(100% - 250px - 0.01px)' } : { width: 'calc(100% - 0.01px)' }} className="catalog-products">
+                            <div className="catalog-products-top">
+                                <button onClick={() => sideBar ? (setSideBar(false) || body.classList.remove('lock')) : (setSideBar(true) || body.classList.add('lock'))} className="catalog-products-filter-menu">
+                                    <img src={menu} alt="" />
+                                </button>
+                                <div className="catalog-products-filter">
+                                    <select name="" id="" className="catalog-products-selection">
+                                        <option value=""></option>
+                                    </select>
+                                    <button className="catalog-products-filter-all"></button>
+                                </div>
+                                <div className="catalog-products-information">
+                                    <div className="catalog-products-information-products-number info"><p>{`${products.pagination ? (products.pagination.totalNumberOfResults) : (0)} товар(-а, -ов)`}</p></div>
+                                    <div className="catalog-products-information-pages-number info"><p>{`${products.pagination ? (products.pagination.numberOfPages) : (0)} страниц`}</p></div>
+                                </div>
+                            </div>
                             {
-                                catalogLoading ? (products ? <div className="catalog-products-list list">
+                                catalogLoading ? (products.results ? <div className="catalog-products-list list">
                                     {
-                                        products.map((product) => (
-                                            <div style={categorieValue ? { maxWidth: '33%' } : { maxWidth: '24%' }} className="catalog-product-card">
-                                                <div className="catalog-product-card-top">
+                                        products.results.map((product) => (
+                                            <div className={categorieValue ? 'catalog-product-card active' : 'catalog-product-card'}>
+                                                {
+                                                    favouritesList.find((o) => o.defaultArticle.code === product.defaultArticle.code) ?
+                                                        <button onClick={() => removeCardFromFavouritesList(product.defaultArticle.code)} className="catalog-product-card-button active"></button>
+                                                        :
+                                                        <button disabled={favouritesList.find((o) => o.defaultArticle.code === product.defaultArticle.code) ? true : false} onClick={() => addCardToFavouritesList(product)} className="catalog-product-card-button"></button>
+                                                }
+                                                <Link className="catalog-product-card-top">
                                                     <div className="catalog-product-card-img">
                                                         <img src={product.images[0].url} alt="" className="catalog-product-card-img-default" />
                                                         <img src={product.defaultArticle.logoPicture[0].url} alt="" className="catalog-product-card-img-onhover" />
                                                     </div>
-                                                </div>
+                                                </Link>
                                                 <div className="catalog-product-card-bottom">
                                                     <div className="catalog-product-card-title sub-title">
                                                         <h1>{product.name}</h1>
                                                     </div>
                                                     <div className="catalog-product-card-price info">
                                                         <p>{product.whitePrice.formattedValue}</p>
+                                                    </div>
+                                                    <div className="catalog-product-card-colors">
+                                                        {
+                                                            product.rgbColors ? (product.rgbColors.map((rgbColor) => (
+                                                                <div style={{ backgroundColor: `${rgbColor}` }} className="catalog-product-card-color"></div>
+                                                            )))
+                                                                :
+                                                                null
+                                                        }
                                                     </div>
                                                     <div className="catalog-product-card-categorie-title note">
                                                         <span>{product.categoryName}</span>
@@ -157,7 +199,7 @@ function Catalog() {
                                     }
                                 </div>
                                     :
-                                    <div className="catalog-list-error">
+                                    <div className="catalog-list-error content">
                                         <div className="catalog-list-error-title">
                                             <h1>Connection Failed</h1>
                                         </div>
@@ -168,11 +210,31 @@ function Catalog() {
                                     :
                                     <h1> a</h1>
                             }
+                            {
+                                catalogLoading ? ( products.results ? 
+                                    (<div className="catalog-products-pagination">
+                                        <div className="catalog-products-pagination-info sub-info">
+                                            <h1>{`Отображается ${products.results.length} из ${products.pagination.totalNumberOfResults} товаров`}</h1>
+                                        </div>
+                                        <div className="catalog-products-pagination-line">
+                                            <div style={{ width: `${products.results.length > 0 ? (products.results.length * 100 / products.pagination.totalNumberOfResults) : (0)}%` }} className="catalog-products-pagination-line-active"></div>
+                                            <div className="catalog-products-pagination-line-background"></div>
+                                        </div>
+                                        <button onClick={() => setPageSize(pageSize + 30)} disabled={products.results.length < 0 ? true : false} className="catalog-products-pagination-button button-first">загрузить еще изделия</button>
+                                    </div>)
+                                    :
+                                    null
+                                )
+                                    :
+                                    (
+                                        null
+                                    )
+                            }
                         </div>
                     </div>
                 </div>
             </div>
-        </div >
+        </section >
     )
 }
 

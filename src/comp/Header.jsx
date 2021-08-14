@@ -20,7 +20,7 @@ function Header() {
         if (window.scrollY === 0) {
             setSticky(true)
         }
-    }, [])
+    }, [sticky])
 
     return (
         <header className={sticky ? 'active' : null} id="header">

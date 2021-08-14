@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root{
     --company-color-red:#c11a2b;
-    --company-color-white:#FFF;
     --title-color:rgb(34, 34, 34);
     --info-color:rgb(58, 58, 58);
     --background-color:#FFF;
@@ -15,7 +14,7 @@ body{
 }
 
 body{
-    /* overflow-x:hidden; */
+    overflow-x:hidden;
     /* color: whitesmoke; */
     font-family: 'Atkinson Hyperlegible', sans-serif;
 }
@@ -52,7 +51,7 @@ form{
 }
 
 ::-webkit-scrollbar-thumb{
-    background-color: var(--company-color);
+    background-color: var(--company-color-red);
     width: 10px;
     /* border-top-left-radius: 7px; */
     /* border-bottom-left-radius: 7px; */
@@ -116,6 +115,11 @@ select{
     font: inherit;
 }
 
+button{
+    background: transparent;
+    border: none;
+}
+
 a{
     text-decoration: none;
     color: inherit;
@@ -152,6 +156,7 @@ iframe{
     display: flex;
     flex-flow: wrap row;
     margin-top: 15px;
+    justify-content: space-between;
 }
 
 .title{
@@ -163,6 +168,7 @@ iframe{
     animation: forwards text-appear 0.5s ease-in-out;
     opacity: 0;
     transform: translateX(10px);
+    text-align: center;
 }
 
 .sub-title{
@@ -200,4 +206,22 @@ iframe{
     font-size: 12px;
     letter-spacing: 2px;
     font-style: italic;
+    margin-top: 10px;
+}
+
+.content{
+    padding: 40px 250px;
+    text-align: center;
+}
+
+.button-first{
+    border: none;
+    background-color: var(--title-color);
+    padding: 12px;
+    text-transform: uppercase;
+    color: var(--background-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    margin-top: 30px;
+    cursor: pointer;
 }

@@ -15,16 +15,16 @@ export const GlobalProvider = (props) => {
         localStorage.setItem('favouritesList', JSON.stringify(state.favouritesList))
     }, [state])
 
-    const addWebsiteToFavouritesList = (portfolioProject) => {
-        dispatch({ type: "ADD_PROJECT_TO_FAVOURITES_LIST", payload: portfolioProject })
+    const addCardToFavouritesList = (product) => {
+        dispatch({ type: "ADD_CARD_TO_FAVOURITES_LIST", payload: product })
     }
 
-    const removeWebsiteFromFavouritesList = (project_id) => {
-        dispatch({ type: "REMOVE_PROJECT_FROM_FAVOURITES_LIST", payload: project_id })
+    const removeCardFromFavouritesList = (card_code) => {
+        dispatch({ type: "REMOVE_CARD_FROM_FAVOURITES_LIST", payload: card_code })
     }
 
     return (
-        <GlobalContext.Provider value={{ favouritesList: state.favouritesList, addWebsiteToFavouritesList, removeWebsiteFromFavouritesList, }}>
+        <GlobalContext.Provider value={{ favouritesList: state.favouritesList, addCardToFavouritesList, removeCardFromFavouritesList, }}>
             {props.children}
         </GlobalContext.Provider>
     )
