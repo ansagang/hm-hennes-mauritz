@@ -86,11 +86,11 @@ function Catalog() {
                         <button onClick={() => setSideBar(false) || body.classList.remove('lock')} className="catalog-categories-menu-close"><img src={menuClose} alt="" /></button>
                         <span style={categorieValue ? null : { color: '#c11a2b' }} onClick={() => setCategorieValue() || setCategorieName()} className={categorieValue === undefined ? 'catalog-categorie-button link active' : 'catalog-categorie-button link'}>All</span>
                         {
-                            categoriesLoading ? (categories.length > 0 ? (categories.map((categorie, i) => (
+                            categoriesLoading ? (categories ? (categories.length > 0 ? (categories.map((categorie, i) => (
                                 <div className={categorieValue === categorie.tagCodes[0] ? 'catalog-categorie active' : 'catalog-categorie'} key={i}>
                                     <span className="catalog-categorie-button link" style={categorie.tagCodes.length > 0 ? (categorieValue === categorie.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => categorie.tagCodes.length > 0 ? (setCategorieValue(categorie.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName()) : null}>{categorie.CatName}</span>
                                     {
-                                        categorie.CategoriesArray ? (<div className="catalog-categorie-subcategories">
+                                        categorie.CategoriesArray ? (products.results ? <div className="catalog-categorie-subcategories">
                                             {
                                                 categorie.CategoriesArray.map((CategoriesItem) => (
                                                     <div className="catalog-categorie-subcategorie">
@@ -109,14 +109,14 @@ function Catalog() {
                                                     </div>
                                                 ))
                                             }
-                                        </div>)
+                                        </div> : null)
                                             :
                                             null
                                     }
                                 </div>
                             )))
                                 :
-                                null)
+                                null) : null)
                                 :
                                 null
                         }
@@ -170,7 +170,12 @@ function Catalog() {
                                 </button>
                                 <div className="catalog-products-filter">
                                     <select name="" id="" className="catalog-products-selection">
-                                        <option value=""></option>
+                                        <option className="catalog-products-selection-option" value="1">Colors</option>
+                                        {/* {
+                                            products.facets[4].map((color) => (
+                                                <option value="" className="catalog-products-selection-option">{color.values[0]}</option>
+                                            ))
+                                        } */}
                                     </select>
                                     <button className="catalog-products-filter-all"></button>
                                 </div>
@@ -233,7 +238,7 @@ function Catalog() {
                                     <Loading />
                             }
                             {
-                                catalogLoading ? (products.results ? 
+                                catalogLoading ? (products.results ?
                                     (products.results.length > 0 ? (<div className="catalog-products-pagination">
                                         <div className="catalog-products-pagination-info sub-info">
                                             <h1>{`Сейчас вы находитесь на ${currentPage + 1} странице из ${totalPages} страниц`}</h1>
