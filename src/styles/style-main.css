@@ -111,7 +111,7 @@ header.active{
     left: 0;
     right: 0;
     border-bottom: 3px solid var(--title-color);
-    z-index: 3;
+    z-index: 99;
     padding: 0 60px;
 }
 
@@ -325,19 +325,45 @@ display: flex;
 .catalog-products-pagination-line{
     position: relative;
     margin-top: 20px;
+    height: 3px;
+    background-color: gray;
+    opacity: 0.5;
+    width: 100%;
 }
 
 .catalog-products-pagination-line-active{
     position: absolute;
     height: 3px;
-    background-color: var(--title-color);
-    z-index: 2;
+    background-color: #000;
+    z-index: 3;
 }
 
-.catalog-products-pagination-line-background{
-    position: absolute;
-    height: 3px;
+.catalog-products-pagination-links{
+    margin-top: 15px;
+    display: flex;
+}
+
+.catalog-products-pagination-link{
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    /* display: flex; */
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    background-color: var(--title-color);
+}
+
+.catalog-products-pagination-link button{
+    color: var(--background-color);
+}
+
+.catalog-products-pagination-link:hover{
     background-color: gray;
-    opacity: 0.5;
-    width: 100%;
+}
+
+.catalog-products-pagination-link.active{
+    background-color: gray;
 }

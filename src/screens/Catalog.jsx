@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { useEffect } from "react"
-// import Loading from '../comp/Loading'
+import Loading from '../comp/Loading'
 import { Link } from "react-router-dom"
 import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import menu from '../img/menu.svg'
 import menuClose from '../img/menu-close.svg'
+import Pagination from "../comp/Pagination";
 
 function Catalog() {
     const [categories, setCategories] = useState([])
@@ -16,7 +17,9 @@ function Catalog() {
     const [catalogLoading, setCatalogLoading] = useState(false)
     const [categoriesLoading, setCategoriesLoading] = useState(false)
     const [sideBar, setSideBar] = useState(false)
-    const [pageSize, setPageSize] = useState(30) 
+    let [totalResults, setTotalResults] = useState(0)
+    let [totalPages, setTotalPages] = useState(0)
+    let [currentPage, setCurrentPage] = useState(0)
     const body = document.querySelector('body')
     console.log(categorieValue);
 
@@ -37,7 +40,7 @@ function Catalog() {
     }, [])
 
     useEffect(() => {
-        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=" + pageSize + "&categories=" + categorieValue + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=" + pageSize + "", {
+        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30", {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": "79de731607mshcee0733450a819cp167e97jsn947d06a4e960",
@@ -47,10 +50,29 @@ function Catalog() {
             .then(response => response.json())
             .then(data => {
                 setProducts(data)
+                setTotalResults(data.pagination.totalNumberOfResults)
+                setTotalPages(data.pagination.numberOfPages)
                 setCatalogLoading(true)
+                setCurrentPage(0)
                 console.log(data);
             })
-    }, [categorieValue, pageSize])
+    }, [categorieValue])
+
+    let nextPage = (pageNumber) => {
+        window.scrollTo(0, 0)
+        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "79de731607mshcee0733450a819cp167e97jsn947d06a4e960",
+                "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com"
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                setProducts(data)
+                setCurrentPage(currentPage = pageNumber)
+            })
+    }
 
     const { removeCardFromFavouritesList, addCardToFavouritesList, favouritesList } = useContext(GlobalContext)
 
@@ -158,7 +180,7 @@ function Catalog() {
                                 </div>
                             </div>
                             {
-                                catalogLoading ? (products.results ? <div className="catalog-products-list list">
+                                catalogLoading ? (products.results ? (products.results.length > 0 ? (<div className="catalog-products-list list">
                                     {
                                         products.results.map((product) => (
                                             <div className={categorieValue ? 'catalog-product-card active' : 'catalog-product-card'}>
@@ -197,7 +219,7 @@ function Catalog() {
                                             </div>
                                         ))
                                     }
-                                </div>
+                                </div>) : (<div className="lol">gg</div>))
                                     :
                                     <div className="catalog-list-error content">
                                         <div className="catalog-list-error-title">
@@ -208,20 +230,22 @@ function Catalog() {
                                         </div>
                                     </div>)
                                     :
-                                    <h1> a</h1>
+                                    <Loading />
                             }
                             {
-                                catalogLoading ? ( products.results ? 
-                                    (<div className="catalog-products-pagination">
+                                catalogLoading ? (products.results ? 
+                                    (products.results.length > 0 ? (<div className="catalog-products-pagination">
                                         <div className="catalog-products-pagination-info sub-info">
-                                            <h1>{`Отображается ${products.results.length} из ${products.pagination.totalNumberOfResults} товаров`}</h1>
+                                            <h1>{`Сейчас вы находитесь на ${currentPage + 1} странице из ${totalPages} страниц`}</h1>
                                         </div>
                                         <div className="catalog-products-pagination-line">
-                                            <div style={{ width: `${products.results.length > 0 ? (products.results.length * 100 / products.pagination.totalNumberOfResults) : (0)}%` }} className="catalog-products-pagination-line-active"></div>
-                                            <div className="catalog-products-pagination-line-background"></div>
+                                            <div style={{ width: `${products.results.length > 0 ? ((currentPage + 1) * 100 / totalPages) : (0)}%` }} className="catalog-products-pagination-line-active"></div>
                                         </div>
-                                        <button onClick={() => setPageSize(pageSize + 30)} disabled={products.results.length < 0 ? true : false} className="catalog-products-pagination-button button-first">загрузить еще изделия</button>
-                                    </div>)
+                                        {/* <button disabled={products.results.length < 0 ? true : false} className="catalog-products-pagination-button button-first">загрузить еще изделия</button> */}
+                                        {
+                                            totalResults > 30 ? <Pagination pages={totalPages} nextPage={nextPage} currentPage={currentPage} /> : ''
+                                        }
+                                    </div>) : null)
                                     :
                                     null
                                 )
