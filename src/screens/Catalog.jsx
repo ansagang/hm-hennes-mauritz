@@ -20,6 +20,7 @@ function Catalog() {
     let [totalResults, setTotalResults] = useState(0)
     let [totalPages, setTotalPages] = useState(0)
     let [currentPage, setCurrentPage] = useState(0)
+    const [sortBy, setSortBy] = useState('stock')
     const body = document.querySelector('body')
     console.log(categorieValue);
 
@@ -40,7 +41,7 @@ function Catalog() {
     }, [])
 
     useEffect(() => {
-        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30", {
+        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&sortBy=" + sortBy + "", {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": "79de731607mshcee0733450a819cp167e97jsn947d06a4e960",
@@ -56,11 +57,11 @@ function Catalog() {
                 setCurrentPage(0)
                 console.log(data);
             })
-    }, [categorieValue])
+    }, [categorieValue, sortBy])
 
     let nextPage = (pageNumber) => {
         window.scrollTo(0, 0)
-        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30", {
+        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&sortBy=" + sortBy + "", {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": "79de731607mshcee0733450a819cp167e97jsn947d06a4e960",
@@ -121,8 +122,13 @@ function Catalog() {
                                 null
                         }
                     </div>
-                    <div className="catalog-breadcrumbs info">
-                        <h1>{categorieName ? (subCategorieName ? (categorieName + ' / ' + subCategorieName) : (categorieName)) : 'All'}</h1>
+                    <div className="catalog-navigation">
+                        <div className="catalog-breadcrumbs info">
+                            <h1>{categorieName ? (subCategorieName ? (categorieName + ' / ' + subCategorieName) : (categorieName)) : 'All'}</h1>
+                        </div>
+                        <button onClick={() => sideBar ? (setSideBar(false) || body.classList.remove('lock')) : (setSideBar(true) || body.classList.add('lock'))} className="catalog-products-filter-menu">
+                            <img src={menu} alt="" />
+                        </button>
                     </div>
                     <div className="catalog-menu">
                         {
@@ -165,17 +171,15 @@ function Catalog() {
                         }
                         <div style={categorieValue ? { width: 'calc(100% - 250px - 0.01px)' } : { width: 'calc(100% - 0.01px)' }} className="catalog-products">
                             <div className="catalog-products-top">
-                                <button onClick={() => sideBar ? (setSideBar(false) || body.classList.remove('lock')) : (setSideBar(true) || body.classList.add('lock'))} className="catalog-products-filter-menu">
-                                    <img src={menu} alt="" />
-                                </button>
                                 <div className="catalog-products-filter">
-                                    <select name="" id="" className="catalog-products-selection">
-                                        <option className="catalog-products-selection-option" value="1">Colors</option>
-                                        {/* {
-                                            products.facets[4].map((color) => (
-                                                <option value="" className="catalog-products-selection-option">{color.values[0]}</option>
-                                            ))
-                                        } */}
+                                    <select onChange={(e) => {
+                                        const selectedSort = e.target.value
+                                        setSortBy(selectedSort)
+                                    }} name="" id="" className="catalog-products-selection">
+                                        <option className="catalog-products-selection-option" value="stock">Stock</option>
+                                        <option className="catalog-products-selection-option" value="ascPrice">ascPrice</option>
+                                        <option className="catalog-products-selection-option" value="descPrice">descPrice</option>
+                                        <option className="catalog-products-selection-option" value="newProduct">newProduct</option>
                                     </select>
                                     <button className="catalog-products-filter-all"></button>
                                 </div>

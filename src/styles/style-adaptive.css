@@ -48,6 +48,7 @@
         overflow-y: auto;
         overflow-x: hidden;
         justify-content: flex-start;
+        transition: 0.5s ease-in-out;
     }
     .catalog-categories.active .catalog-categories-menu-close{
         display: flex;
@@ -100,6 +101,9 @@
     }
     .catalog-categorie-button{
         width: 100%;
+    }
+    .catalog-navigation{
+        justify-content: space-between;
     }
 }
 
