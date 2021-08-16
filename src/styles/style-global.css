@@ -5,6 +5,8 @@
     --company-color-red:#c11a2b;
     --title-color:rgb(34, 34, 34);
     --info-color:rgb(58, 58, 58);
+    --company-color-black:#000;
+    --company-color-gray:rgb(155, 155, 155);
     --background-color:#FFF;
 }
 
@@ -224,4 +226,22 @@ iframe{
     font-weight: 500;
     margin-top: 30px;
     cursor: pointer;
+}
+
+select{
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    color: var(--title-color);
+}
+
+option{
+    border: none !important;
+}
+
+input{
+    border: none;
+    padding: 12px;
+    border-bottom: 1px solid #000;
+    margin-bottom: 20px;
 }

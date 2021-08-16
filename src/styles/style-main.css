@@ -326,7 +326,7 @@ display: flex;
     position: relative;
     margin-top: 20px;
     height: 3px;
-    background-color: rgb(194, 194, 194);
+    background-color: var(--company-color-gray);
     width: 100%;
 }
 
@@ -356,7 +356,7 @@ display: flex;
     text-align: center;
     line-height: 30px;
     cursor: pointer;
-    background-color: gray;
+    background-color: var(--company-color-gray);
 }
 
 .catalog-products-pagination-link button{
@@ -374,5 +374,63 @@ display: flex;
 
 .catalog-navigation{
     display: flex;
+    justify-content: center;
+}
+
+.catalog-search-query{
+    margin-top: 20px;
+}
+
+.svg-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 7em;
+    height: 15em;
+    transform: translate3d( -50%, -50%, 0 );
+  }
+  
+  .svg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    animation: spin 6s linear infinite;
+  }
+  
+  .symbol{
+    fill: transparent;
+    stroke: var(--company-color-red);
+    stroke-width: 20px;
+    stroke-dasharray: 1600;
+    stroke-miterlimit: 10;
+    stroke-dashoffset: 1600;
+    animation: dash 3s linear infinite;
+  }
+  
+  @keyframes dash {
+    from {
+      stroke-dashoffset: 1600;
+    }
+    to {
+      stroke-dashoffset: -1600;
+    }
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
+.catalog-products-list-loader{
+    height: 300px;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
