@@ -213,7 +213,7 @@ display: flex;
     display: flex;
 }
 
-.catalog-product-card-color{
+.catalog-product-card-link-color{
     width: 10px;
     height: 10px;
     border-radius: 50%;

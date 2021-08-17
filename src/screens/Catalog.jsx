@@ -25,6 +25,9 @@ function Catalog() {
     const body = document.querySelector('body')
     const [searchTerm, setSearchTerm] = useState("")
     const [preSearchTerm, setPreSearchTerm] = useState("")
+    const [facetsColors, setFacetsColors] = useState("All")
+    // const [facetsPatterns, setFacetsPatterns] = useState("All")
+    console.log(facetsColors);
     console.log(searchTerm);
     console.log(categorieValue);
 
@@ -45,7 +48,7 @@ function Catalog() {
     }, [])
 
     useEffect(() => {
-        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + "", {
+        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&sortBy=" + sortBy + "&colorWithNames" + facetsColors + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": `${apiKeys[0].api_key}`,
@@ -61,11 +64,11 @@ function Catalog() {
                 setCurrentPage(0)
                 console.log(data);
             })
-    }, [categorieValue, sortBy, searchTerm])
+    }, [categorieValue, sortBy, searchTerm, facetsColors])
 
     let nextPage = (pageNumber) => {
         window.scrollTo(0, 0)
-        fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + "", {
+        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&sortBy=" + sortBy + "&colorWithNames" + facetsColors + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": `${apiKeys[0].api_key}`,
@@ -79,6 +82,10 @@ function Catalog() {
             })
     }
 
+    useEffect(() => {
+        deleteFilters()
+    }, [categorieValue, searchTerm])
+
     const { removeCardFromFavouritesList, addCardToFavouritesList, favouritesList } = useContext(GlobalContext)
 
     console.log(products);
@@ -88,6 +95,12 @@ function Catalog() {
         setSearchTerm(preSearchTerm)
         setCategorieName()
         setPreSearchTerm("")
+    }
+
+    function deleteFilters() {
+        setSortBy('stock')
+        setFacetsColors("All")
+        // setFacetsPatterns("All")
     }
 
     return (
@@ -196,7 +209,7 @@ function Catalog() {
                         <div style={categorieValue ? { width: 'calc(100% - 250px - 0.01px)' } : { width: 'calc(100% - 0.01px)' }} className="catalog-products">
                             <div className="catalog-products-top">
                                 <div className="catalog-products-filter">
-                                    <select onChange={(e) => {
+                                    <select value={sortBy} onChange={(e) => {
                                         const selectedSort = e.target.value
                                         setSortBy(selectedSort)
                                     }} name="" id="" className="catalog-products-selection">
@@ -205,7 +218,33 @@ function Catalog() {
                                         <option className="catalog-products-selection-option" value="descPrice">descPrice</option>
                                         <option className="catalog-products-selection-option" value="newProduct">newProduct</option>
                                     </select>
-                                    <button className="catalog-products-filter-all"></button>
+                                    <select value={facetsColors} onChange={(e) => {
+                                        const selectedColor = e.target.value
+                                        setFacetsColors(selectedColor)
+                                    }} name="" id="" className="catalog-products-selection">
+                                        <option className="catalog-products-selection-option" value="All">All</option>
+                                        {
+                                            products.facets ? (products.facets[14] ? products.facets.filter(item => item.code === 'colorWithNames').map((facet) => (
+                                                facet.values.map((value) => (
+                                                    <option className="catalog-products-selection-option" value={value.code}>{value.code}</option>
+                                                ))
+                                            )) : null) : null
+                                        }
+                                    </select>
+                                    {/* <select value={facetsPatterns} onChange={(e) => {
+                                        const selectedColor = e.target.value
+                                        setFacetsPatterns(selectedColor)
+                                    }} name="" id="" className="catalog-products-selection">
+                                        <option className="catalog-products-selection-option" value="All">All</option>
+                                        {
+                                            products.facets ? (products.facets[14] ? products.facets.filter(item => item.code === 'patterns').map((facet) => (
+                                                facet.values.map((value) => (
+                                                    <option className="catalog-products-selection-option" value={value.code}>{value.code}</option>
+                                                ))
+                                            )) : null) : null
+                                        }
+                                    </select> */}
+                                    <button onClick={deleteFilters} className="catalog-products-selection-clear">Delete Filters</button>
                                 </div>
                                 <div className="catalog-products-information">
                                     <div className="catalog-products-information-products-number info"><p>{`${products.pagination ? (products.pagination.totalNumberOfResults) : (0)} товар(-а, -ов)`}</p></div>
@@ -238,8 +277,10 @@ function Catalog() {
                                                     </div>
                                                     <div className="catalog-product-card-colors">
                                                         {
-                                                            product.rgbColors ? (product.rgbColors.map((rgbColor) => (
-                                                                <div style={{ backgroundColor: `${rgbColor}` }} className="catalog-product-card-color"></div>
+                                                            product.articleCodes ? (product.articleCodes.map((articleCode, i) => (
+                                                                <Link to={'/catalog/product-' + articleCode} className="catalog-product-card-links">
+                                                                    <div style={{ backgroundColor: `${product.rgbColors[i]}` }} className="catalog-product-card-link-color"></div>
+                                                                </Link>
                                                             )))
                                                                 :
                                                                 null
