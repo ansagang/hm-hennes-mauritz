@@ -7,6 +7,7 @@ import menu from '../img/menu.svg'
 import menuClose from '../img/menu-close.svg'
 import Pagination from "../comp/Pagination";
 import { apiKeys } from "../data/apiKeys";
+import search from '../img/search.svg'
 
 function Catalog() {
     const [categories, setCategories] = useState([])
@@ -67,7 +68,7 @@ function Catalog() {
         fetch(categorieValue ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + "", {
             "method": "GET",
             "headers": {
-                "x-rapidapi-key": "ae2ccd9a0bmsh19f84428d359683p19be62jsn1f3bc7d6e555",
+                "x-rapidapi-key": `${apiKeys[0].api_key}`,
                 "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com"
             }
         })
@@ -86,6 +87,7 @@ function Catalog() {
         setCategorieValue()
         setSearchTerm(preSearchTerm)
         setCategorieName()
+        setPreSearchTerm("")
     }
 
     return (
@@ -135,8 +137,8 @@ function Catalog() {
                         {
                             searchTerm ?
                                 (
-                                    <div className="catalog-search-query info">
-                                        <h1>{`По запросу: ${searchTerm} найдено`}</h1>
+                                    <div className="catalog-search-query sub-title">
+                                        <h1>{`Показаны результаты для: "${searchTerm}"`}</h1>
                                     </div>
                                 )
                                 :
@@ -148,9 +150,10 @@ function Catalog() {
                             <img src={menu} alt="" />
                         </button>
                     </div>
-                    <form action="javascript:void(0);" onSubmit={handleSubmit} className="catalog-search-bar">
-                        <input onClick={() => setSearchTerm("")} type="search" onChange={e => setPreSearchTerm(e.target.value)} placeholder="Search a product" className="catalog-search-bar-input" />
-                    </form>
+                    <div className="catalog-search-bar">
+                        <input onClick={() => setSearchTerm("")} value={preSearchTerm} type="search" onChange={e => setPreSearchTerm(e.target.value)} placeholder="Search a product" className="catalog-search-bar-input" />
+                        <button onClick={() => handleSubmit()} className="catalog-search-bar-button"><img src={search} alt="" /></button>
+                    </div>
                     <div className="catalog-menu">
                         {
                             categorieValue ?
@@ -220,7 +223,7 @@ function Catalog() {
                                                         :
                                                         <button disabled={favouritesList.find((o) => o.defaultArticle.code === product.defaultArticle.code) ? true : false} onClick={() => addCardToFavouritesList(product)} className="catalog-product-card-button"></button>
                                                 }
-                                                <Link to={'/catalog/product-' + product.articleCodes[0]} className="catalog-product-card-top">
+                                                <Link to={'/catalog/product-' + product.defaultArticle.code} className="catalog-product-card-top">
                                                     <div className="catalog-product-card-img">
                                                         <img src={product.images[0].url} alt="" className="catalog-product-card-img-default" />
                                                         <img src={product.defaultArticle.logoPicture[0].url} alt="" className="catalog-product-card-img-onhover" />
