@@ -8,6 +8,7 @@ import menuClose from '../img/menu-close.svg'
 import Pagination from "../comp/Pagination";
 import { apiKeys } from "../data/apiKeys";
 import search from '../img/search.svg'
+import cancel from '../img/cancel.svg'
 
 function Catalog() {
     const [categories, setCategories] = useState([])
@@ -48,7 +49,7 @@ function Catalog() {
     }, [])
 
     useEffect(() => {
-        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&sortBy=" + sortBy + "&colorWithNames" + facetsColors + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
+        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": `${apiKeys[0].api_key}`,
@@ -62,13 +63,14 @@ function Catalog() {
                 setTotalPages(data.pagination ? data.pagination.numberOfPages : null)
                 setCatalogLoading(true)
                 setCurrentPage(0)
+                // setPreSearchTerm("")
                 console.log(data);
             })
     }, [categorieValue, sortBy, searchTerm, facetsColors])
 
     let nextPage = (pageNumber) => {
         window.scrollTo(0, 0)
-        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&sortBy=" + sortBy + "&colorWithNames" + facetsColors + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
+        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": `${apiKeys[0].api_key}`,
@@ -94,7 +96,6 @@ function Catalog() {
         setCategorieValue()
         setSearchTerm(preSearchTerm)
         setCategorieName()
-        setPreSearchTerm("")
     }
 
     function deleteFilters() {
@@ -102,7 +103,7 @@ function Catalog() {
         setFacetsColors("All")
         // setFacetsPatterns("All")
     }
-
+    
     return (
         <section className="catalog">
             <div className="container">
@@ -113,7 +114,7 @@ function Catalog() {
                         {
                             categoriesLoading ? (categories ? (categories.length > 0 ? (categories.map((categorie, i) => (
                                 <div className={categorieValue === categorie.tagCodes[0] ? 'catalog-categorie active' : 'catalog-categorie'} key={i}>
-                                    <span className="catalog-categorie-button link" style={categorie.tagCodes.length > 0 ? (categorieValue === categorie.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => categorie.tagCodes.length > 0 ? (setCategorieValue(categorie.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName() || setSearchTerm("")) : null}>{categorie.CatName}</span>
+                                    <span className="catalog-categorie-button link" style={categorie.tagCodes.length > 0 ? (categorieValue === categorie.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => categorie.tagCodes.length > 0 ? (setCategorieValue(categorie.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName() || setSearchTerm("") || setPreSearchTerm("")) : null}>{categorie.CatName}</span>
                                     {
                                         categorie.CategoriesArray ? (products.results ? <div className="catalog-categorie-subcategories">
                                             {
@@ -125,7 +126,7 @@ function Catalog() {
                                                         <div className="catalog-categorie-subcategorie-items">
                                                             {
                                                                 CategoriesItem.CategoriesArray ? CategoriesItem.CategoriesArray.map((SubCategorieItem) => (
-                                                                    <span style={SubCategorieItem.tagCodes.length > 0 ? (categorieValue === SubCategorieItem.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => SubCategorieItem.tagCodes.length > 0 ? (setCategorieValue(SubCategorieItem.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName(CategoriesItem.CatName + ' / ' + SubCategorieItem.CatName) || setSearchTerm("")) : null} className="catalog-categorie-subcategorie-item link">{SubCategorieItem.CatName}</span>
+                                                                    <span style={SubCategorieItem.tagCodes.length > 0 ? (categorieValue === SubCategorieItem.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => SubCategorieItem.tagCodes.length > 0 ? (setCategorieValue(SubCategorieItem.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName(CategoriesItem.CatName + ' / ' + SubCategorieItem.CatName) || setSearchTerm("") || setPreSearchTerm("")) : null} className="catalog-categorie-subcategorie-item link">{SubCategorieItem.CatName}</span>
                                                                 ))
                                                                     :
                                                                     null
@@ -163,9 +164,16 @@ function Catalog() {
                             <img src={menu} alt="" />
                         </button>
                     </div>
-                    <div className="catalog-search-bar">
-                        <input onClick={() => setSearchTerm("")} value={preSearchTerm} type="search" onChange={e => setPreSearchTerm(e.target.value)} placeholder="Search a product" className="catalog-search-bar-input" />
-                        <button onClick={() => handleSubmit()} className="catalog-search-bar-button"><img src={search} alt="" /></button>
+                    <div className="catalog-search">
+                        <div className="catalog-search-bar">
+                            <input value={preSearchTerm} type="search" onChange={e => setPreSearchTerm(e.target.value)} placeholder="Search a product" className="catalog-search-bar-input" />
+                            <button onClick={() => handleSubmit()} className="catalog-search-bar-button"><img src={search} alt="" /></button>
+                            <button style={preSearchTerm !== "" ? { display: 'block' } : { display: 'none' }} onClick={() => setSearchTerm("") || setPreSearchTerm("") || deleteFilters()} className="catalog-search-bar-cancel-button"><img src="" alt="" /><img src={cancel} alt="" /></button>
+                        </div>
+                        <div className="catalog-products-information">
+                            <div className="catalog-products-information-products-number info"><p>{`${products.pagination ? (products.pagination.totalNumberOfResults) : (0)} товар(-а, -ов)`}</p></div>
+                            <div className="catalog-products-information-pages-number info"><p>{`${products.pagination ? (products.pagination.numberOfPages) : (0)} страниц`}</p></div>
+                        </div>
                     </div>
                     <div className="catalog-menu">
                         {
@@ -209,46 +217,35 @@ function Catalog() {
                         <div style={categorieValue ? { width: 'calc(100% - 250px - 0.01px)' } : { width: 'calc(100% - 0.01px)' }} className="catalog-products">
                             <div className="catalog-products-top">
                                 <div className="catalog-products-filter">
-                                    <select value={sortBy} onChange={(e) => {
-                                        const selectedSort = e.target.value
-                                        setSortBy(selectedSort)
-                                    }} name="" id="" className="catalog-products-selection">
-                                        <option className="catalog-products-selection-option" value="stock">Stock</option>
-                                        <option className="catalog-products-selection-option" value="ascPrice">ascPrice</option>
-                                        <option className="catalog-products-selection-option" value="descPrice">descPrice</option>
-                                        <option className="catalog-products-selection-option" value="newProduct">newProduct</option>
-                                    </select>
-                                    <select value={facetsColors} onChange={(e) => {
-                                        const selectedColor = e.target.value
-                                        setFacetsColors(selectedColor)
-                                    }} name="" id="" className="catalog-products-selection">
-                                        <option className="catalog-products-selection-option" value="All">All</option>
+                                    <div className="catalog-products-filter-selections">
+                                        <select value={sortBy} onChange={(e) => {
+                                            const selectedSort = e.target.value
+                                            setSortBy(selectedSort)
+                                        }} name="" id="" className="catalog-products-selection">
+                                            <option className="catalog-products-selection-option" value="stock">Stock</option>
+                                            <option className="catalog-products-selection-option" value="ascPrice">ascPrice</option>
+                                            <option className="catalog-products-selection-option" value="descPrice">descPrice</option>
+                                            <option className="catalog-products-selection-option" value="newProduct">newProduct</option>
+                                        </select>
                                         {
-                                            products.facets ? (products.facets[14] ? products.facets.filter(item => item.code === 'colorWithNames').map((facet) => (
-                                                facet.values.map((value) => (
-                                                    <option className="catalog-products-selection-option" value={value.code}>{value.code}</option>
-                                                ))
-                                            )) : null) : null
+                                            categorieValue ? (<select value={facetsColors} onChange={(e) => {
+                                                const selectedColor = e.target.value
+                                                setFacetsColors(selectedColor)
+                                            }} name="" id="" className="catalog-products-selection">
+                                                <option className="catalog-products-selection-option" value="All">All</option>
+                                                {
+                                                    products.facets ? (products.facets[14] ? products.facets.filter(item => item.code === 'colorWithNames').map((facet) => (
+                                                        facet.values.map((value) => (
+                                                            <option className="catalog-products-selection-option" value={value.code}>{value.code}</option>
+                                                        ))
+                                                    )) : null) : null
+                                                }
+                                            </select>)
+                                                :
+                                                null
                                         }
-                                    </select>
-                                    {/* <select value={facetsPatterns} onChange={(e) => {
-                                        const selectedColor = e.target.value
-                                        setFacetsPatterns(selectedColor)
-                                    }} name="" id="" className="catalog-products-selection">
-                                        <option className="catalog-products-selection-option" value="All">All</option>
-                                        {
-                                            products.facets ? (products.facets[14] ? products.facets.filter(item => item.code === 'patterns').map((facet) => (
-                                                facet.values.map((value) => (
-                                                    <option className="catalog-products-selection-option" value={value.code}>{value.code}</option>
-                                                ))
-                                            )) : null) : null
-                                        }
-                                    </select> */}
-                                    <button onClick={deleteFilters} className="catalog-products-selection-clear">Delete Filters</button>
-                                </div>
-                                <div className="catalog-products-information">
-                                    <div className="catalog-products-information-products-number info"><p>{`${products.pagination ? (products.pagination.totalNumberOfResults) : (0)} товар(-а, -ов)`}</p></div>
-                                    <div className="catalog-products-information-pages-number info"><p>{`${products.pagination ? (products.pagination.numberOfPages) : (0)} страниц`}</p></div>
+                                    </div>
+                                    <button onClick={deleteFilters} className="catalog-products-selection-clear button-first">Delete Filters</button>
                                 </div>
                             </div>
                             {
@@ -293,22 +290,27 @@ function Catalog() {
                                             </div>
                                         ))
                                     }
-                                </div>) : (<div className="lol">gg</div>))
+                                </div>) : (<div className="catalog-list-error content">
+                                    <div className="catalog-list-error-title title">
+                                        <h1>No Product Found</h1>
+                                    </div>
+                                    <div className="catalog-list-error-info info">
+                                        <p>Could not find the products you are searching for</p>
+                                    </div>
+                                </div>))
                                     :
                                     <div className="catalog-list-error content">
-                                        <div className="catalog-list-error-title">
+                                        <div className="catalog-list-error-title title">
                                             <h1>Connection Failed</h1>
                                         </div>
-                                        <div className="catalog-list-error-info">
+                                        <div className="catalog-list-error-info info">
                                             <p>Could not connect to server <br /> Please check your connection and try again</p>
                                         </div>
                                     </div>)
                                     :
-                                    <div className="catalog-products-list-loader">
-                                        <div className="svg-container">
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="svg" viewBox="0 0 512 512" preserveAspectRatio="xMinYMin meet">
-                                                <path className="symbol" d="M256.2 2.9c36.8 0 52.4 23.9 77.2 32 24.8 8.1 41.8-5.2 71.6 16.4 29.8 21.6 28.3 50.1 43.7 71.2 15.3 21.1 36.9 20.4 48.2 55.4 11.4 35-6.5 57.2-6.5 83.3 0 26.1 17.9 38.1 6.5 73.1-11.4 35-38.9 42.4-54.2 63.5-15.3 21.1-8 41.3-37.7 63-29.8 21.6-56.4 11.5-81.2 19.5-24.8 8.1-30.8 28.8-67.6 28.8s-52.4-23.9-77.2-32c-24.8-8.1-41.8 5.2-71.6-16.4C77.5 439 79 410.5 63.6 389.4S26.7 369 15.4 334c-11.4-35 6.5-57.2 6.5-83.3 0-26.1-17.9-38.1-6.5-73.1 11.4-35 38.9-42.4 54.2-63.5 15.3-21.1 8-41.4 37.7-63s56.4-11.5 81.2-19.5c24.9-8 30.9-28.7 67.7-28.7z" />
-                                            </svg>
+                                    <div className="catalog-products-list-loader content">
+                                        <div className="catalog-products-list-loader-title title">
+                                            <h1>Loading...</h1>
                                         </div>
                                     </div>
                             }

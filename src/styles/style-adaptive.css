@@ -105,6 +105,10 @@
     .catalog-navigation{
         justify-content: space-between;
     }
+    .catalog-categorie{
+        width: 100%;
+        margin-bottom: 30px;
+    }
 }
 
 @media screen and (max-width:640px){
@@ -133,5 +137,38 @@
     }
     .title{
         font-size: 30px;
+    }
+    .catalog-products-filter{
+        flex-direction: column;
+        width: 100%;
+    }
+    .catalog-search-bar{
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .header-cart img{
+        width: 20px;
+        height: 20px;
+    }
+    .catalog-products-filter-selections{
+        width: 100%;
+    }
+    .catalog-products-information{
+        width: 100%;
+    }
+    .catalog-search-bar-input{
+        width: 100%;
+    }
+    .catalog-products-selection{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .button-first{
+        width: 100%;
+    }
+    .catalog-search{
+        flex-direction: column;
+        width: 100%;
     }
 }
