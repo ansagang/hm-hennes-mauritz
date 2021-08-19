@@ -3,7 +3,8 @@ import './styles/style-main.css'
 import './styles/style-animation.css'
 import './styles/style-adaptive.css'
 import Header from './comp/Header';
-// import Footer from './comp/Footer';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import ScrollTop from './comp/ScrollTop';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from './screens/Home';

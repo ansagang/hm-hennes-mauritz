@@ -9,7 +9,7 @@ function Cart() {
         <section className="cart">
             <div className="container">
                 <div className="cart-inner inner">
-                    <div className="cart-title title">
+                    <div className="cart-title title centered">
                         <h1>Корзина</h1>
                     </div>
                     <div className="cart-info info">
@@ -38,8 +38,10 @@ function Cart() {
                                                     </div>
                                                     <div className="catalog-product-card-colors">
                                                         {
-                                                            favouritesCard.rgbColors ? (favouritesCard.rgbColors.map((rgbColor) => (
-                                                                <div style={{ backgroundColor: `${rgbColor}` }} className="catalog-product-card-color"></div>
+                                                            favouritesCard.articleCodes ? (favouritesCard.articleCodes.map((articleCode, i) => (
+                                                                <Link to={'/catalog/product-' + articleCode} className="catalog-product-card-links">
+                                                                    <div style={{ backgroundColor: `${favouritesCard.rgbColors[i]}` }} className="catalog-product-card-link-color"></div>
+                                                                </Link>
                                                             )))
                                                                 :
                                                                 null

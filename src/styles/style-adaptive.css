@@ -2,6 +2,12 @@
     .catalog-product-card-img{
         height:400px;
     }
+    .product-gallery-img:nth-child(2){
+        display: none;
+    }
+    .product-gallery-img{
+        width: 100%;
+    }
 }
 
 @media screen and (max-width:1040px){
@@ -49,6 +55,19 @@
         overflow-x: hidden;
         justify-content: flex-start;
         transition: 0.5s ease-in-out;
+    }
+    .product-center{
+        flex-direction: column;
+    }
+    .product-left{
+        width: 100%;
+    }
+    .product-right{
+        width: 100%;
+    }
+    .product-detail{
+        width: 100%;
+        margin-right: 0;
     }
     .catalog-categories.active .catalog-categories-menu-close{
         display: flex;

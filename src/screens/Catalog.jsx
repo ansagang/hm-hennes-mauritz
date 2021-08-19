@@ -103,7 +103,7 @@ function Catalog() {
         setFacetsColors("All")
         // setFacetsPatterns("All")
     }
-    
+
     return (
         <section className="catalog">
             <div className="container">
@@ -156,7 +156,7 @@ function Catalog() {
                                     </div>
                                 )
                                 :
-                                (<div className="catalog-breadcrumbs info">
+                                (<div className="catalog-breadcrumbs sub-title">
                                     <h1>{categorieName ? (subCategorieName ? (categorieName + ' / ' + subCategorieName) : (categorieName)) : 'All'}</h1>
                                 </div>)
                         }
@@ -282,6 +282,16 @@ function Catalog() {
                                                                 :
                                                                 null
                                                         }
+                                                        {/* {
+                                                            product.swatchesTotal - product.rgbColors.length !== 0 ?
+                                                                (
+                                                                    <div className="catalog-product-card-colors-more sub-title">
+                                                                        <h1>{`+${product.swatchesTotal - product.rgbColors.length}`}</h1>
+                                                                    </div>
+                                                                )
+                                                                :
+                                                                null
+                                                        } */}
                                                     </div>
                                                     <div className="catalog-product-card-categorie-title note">
                                                         <span>{product.categoryName}</span>

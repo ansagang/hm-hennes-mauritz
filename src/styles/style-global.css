@@ -17,7 +17,6 @@ body{
 
 body{
     overflow-x:hidden;
-    /* color: whitesmoke; */
     font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
@@ -55,17 +54,12 @@ form{
 ::-webkit-scrollbar-thumb{
     background-color: var(--company-color-red);
     width: 10px;
-    /* border-top-left-radius: 7px; */
-    /* border-bottom-left-radius: 7px; */
-    /* margin: 10px; */
     border-radius: 7px;
 }
 
 ::-webkit-scrollbar{
     background:transparent;
     width: 10px;
-    /* height: 10px; */
-    /* padding: 0 5px; */
 }
 
 *,
@@ -171,7 +165,6 @@ iframe{
     line-height: 50px;
     animation: forwards text-appear 0.5s ease-in-out;
     opacity: 0;
-    text-align: center;
 }
 
 .sub-title{
@@ -245,4 +238,39 @@ input{
 
 input[type="search"]::-webkit-search-cancel-button{
   display: none;
+}
+
+.slick-prev:before{
+    background-image: url('../img/arrow-slider-2.svg');
+    color: unset !important;
+}
+
+.slick-next:before {
+    background-image: url('../img/arrow-slider.svg');
+    color: unset !important;
+}
+
+.slick-disabled{
+    display: none !important;
+}
+
+.slick-next{
+    right: 5px !important;
+    z-index: 9;
+    opacity: 1 !important;
+}
+
+.slick-track{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.slick-prev{
+    left: 5px !important;
+    z-index: 9;
+    opacity: 1 !important;
+}
+
+.centered{
+    text-align: center;
 }
