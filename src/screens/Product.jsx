@@ -13,6 +13,7 @@ function Product() {
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 1,
+        rows: 2,
         responsive:
             [
                 {
@@ -25,12 +26,37 @@ function Product() {
                 {
                     breakpoint: 640,
                     settings: {
-                        slidesToShow: 3,
+                        slidesToShow: 4,
                         slidesToScroll: 1
                     }
-                }
+                },
             ]
-    };
+    }
+
+    const settingsthree = {
+        arrows: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        responsive:
+            [
+                {
+                    breakpoint: 900,
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 640,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 1
+                    }
+                },
+            ]
+    }
 
     const settingstwo = {
         arrows: true,
@@ -104,9 +130,9 @@ function Product() {
                                 </div>
                                 <div className="product-right">
                                     <div className="product-information">
-                                        <div className="product-information-sex sub-title">
+                                        {/* <div className="product-information-sex sub-title">
                                             <h1>{product.customerGroup}</h1>
-                                        </div>
+                                        </div> */}
                                         <div className="product-information-title sub-title">
                                             <h1>{product.name}</h1>
                                         </div>
@@ -126,7 +152,7 @@ function Product() {
                                                     </div>
                                                 ))
                                             }
-                                            <Slider {...settings} className="product-information-articles-list">
+                                            <Slider {...product.articlesList.length > 4 ? {...settings} : {...settingsthree}} className="product-information-articles-list">
                                                 {
                                                     product.articlesList.map((article) => (
                                                         <Link className="product-information-article" to={'/catalog/product-' + article.code}>

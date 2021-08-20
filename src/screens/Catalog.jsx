@@ -166,7 +166,7 @@ function Catalog() {
                     </div>
                     <div className="catalog-search">
                         <div className="catalog-search-bar">
-                            <input value={preSearchTerm} type="search" onChange={e => setPreSearchTerm(e.target.value)} placeholder="Search a product" className="catalog-search-bar-input" />
+                            <input onKeyDown={(e) => e.key === 'Enter' ? handleSubmit() : null} value={preSearchTerm} type="search" onChange={e => setPreSearchTerm(e.target.value)} placeholder="Search a product" className="catalog-search-bar-input" />
                             <button onClick={() => handleSubmit()} className="catalog-search-bar-button"><img src={search} alt="" /></button>
                             <button style={preSearchTerm !== "" ? { display: 'block' } : { display: 'none' }} onClick={() => setSearchTerm("") || setPreSearchTerm("") || deleteFilters()} className="catalog-search-bar-cancel-button"><img src="" alt="" /><img src={cancel} alt="" /></button>
                         </div>
@@ -251,8 +251,8 @@ function Catalog() {
                             {
                                 catalogLoading ? (products.results ? (products.results.length > 0 ? (<div className="catalog-products-list list">
                                     {
-                                        products.results.map((product) => (
-                                            <div className={categorieValue ? 'catalog-product-card active' : 'catalog-product-card'}>
+                                        products.results.map((product, i) => (
+                                            <div key={i} className={categorieValue ? 'catalog-product-card active' : 'catalog-product-card'}>
                                                 {
                                                     favouritesList.find((o) => o.defaultArticle.code === product.defaultArticle.code) ?
                                                         <button onClick={() => removeCardFromFavouritesList(product.defaultArticle.code)} className="catalog-product-card-button active"></button>

@@ -2,7 +2,7 @@ import './styles/style-global.css'
 import './styles/style-main.css'
 import './styles/style-animation.css'
 import './styles/style-adaptive.css'
-import Header from './comp/Header';
+import Navigation from './comp/Navigation';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ScrollTop from './comp/ScrollTop';
@@ -19,7 +19,7 @@ function App() {
     <GlobalProvider>
       <BrowserRouter>
         <ScrollTop />
-        <Header />
+        <Navigation />
         <main id="main">
           <Switch>
             <Route exact path="/">

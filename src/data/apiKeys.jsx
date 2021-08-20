@@ -13,5 +13,8 @@ export const apiKeys = [
     // },
     {
         api_key:"ed9d8e8301msh30909324c45a756p14dcf0jsnd4500dd41e03"
+    },
+    {
+        api_key:"c49decacecmsh6952c888406b8bep13bdd7jsn897bb1b1e937"
     }
 ]
