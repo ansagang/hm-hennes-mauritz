@@ -64,7 +64,7 @@ function Navigation() {
                                     <NavLink className="navigation-menu-list-link info" activeStyle={{ filter: 'grayscale(0%)' }} to="/catalog"><img src={catalogicon} alt="" /></NavLink>
                                 </li>
                                 <li className="navigation-menu-list-item">
-                                    <NavLink className="navigation-menu-list-link info" activeStyle={{ filter: 'grayscale(0%)', color:'#c11a2b' }} to="/cart"><img src={cart} alt="" /><p>{favouritesList.length}</p></NavLink>
+                                    <NavLink className="navigation-menu-list-link info" activeStyle={{ filter: 'grayscale(0%)' }} to="/cart"><img src={cart} alt="" /></NavLink>
                                 </li>
                             </ul>
                         </nav>

@@ -152,7 +152,7 @@ function Product() {
                                                     </div>
                                                 ))
                                             }
-                                            <Slider {...product.articlesList.length > 4 ? {...settings} : {...settingsthree}} className="product-information-articles-list">
+                                            <Slider {...product.articlesList.length > 4 ? { ...settings } : { ...settingsthree }} className="product-information-articles-list">
                                                 {
                                                     product.articlesList.map((article) => (
                                                         <Link className="product-information-article" to={'/catalog/product-' + article.code}>
@@ -332,10 +332,10 @@ function Product() {
                         </div>)
                             :
                             <div className="catalog-list-error content">
-                                <div className="catalog-list-error-title">
+                                <div className="catalog-list-error-title title">
                                     <h1>Connection Failed</h1>
                                 </div>
-                                <div className="catalog-list-error-info">
+                                <div className="catalog-list-error-info info">
                                     <p>Could not connect to server <br /> Please check your connection and try again</p>
                                 </div>
                             </div>)
