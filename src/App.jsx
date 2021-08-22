@@ -1,10 +1,3 @@
-import './styles/style-global.css'
-import './styles/style-main.css'
-import './styles/style-animation.css'
-import './styles/style-adaptive.css'
-import Navigation from './comp/Navigation';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import ScrollTop from './comp/ScrollTop';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from './screens/Home';
@@ -13,6 +6,14 @@ import Cart from './screens/Cart';
 import Product from './screens/Product';
 import NotFound from './screens/NotFound';
 import { GlobalProvider } from './context/GlobalState'
+import Navigation from './comp/Navigation';
+
+import './styles/style-global.css'
+import './styles/style-main.css'
+import './styles/style-animation.css'
+import './styles/style-adaptive.css'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   return (
@@ -39,7 +40,6 @@ function App() {
             </Route>
           </Switch>
         </main>
-        {/* <Footer /> */}
       </BrowserRouter>
     </GlobalProvider>
   )

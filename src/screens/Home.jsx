@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import background from '../img/nintchdbpict000269766327.webp'
 import { useState, useEffect } from "react";
 import { apiKeys } from "../data/apiKeys";
 import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import { qa } from "../data/apiKeys";
+
+import background from '../img/nintchdbpict000269766327.webp'
 import questionicon from '../img/question-answer.svg'
 
 function Home() {
@@ -139,16 +140,6 @@ function Home() {
                                                             :
                                                             null
                                                     }
-                                                    {/* {
-                                                            product.swatchesTotal - product.rgbColors.length !== 0 ?
-                                                                (
-                                                                    <div className="catalog-product-card-colors-more sub-title">
-                                                                        <h1>{`+${product.swatchesTotal - product.rgbColors.length}`}</h1>
-                                                                    </div>
-                                                                )
-                                                                :
-                                                                null
-                                                        } */}
                                                 </div>
                                                 <div className="catalog-product-card-categorie-title note">
                                                     <span>{product.categoryName}</span>

@@ -1,13 +1,14 @@
-import logo from '../img/logo.svg'
-import home from '../img/home.svg'
-import catalogicon from '../img/shopping-cart.svg'
-import cart from '../img/shopping-bag.svg'
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import useScrollPosition from '../hooks/useScrollPosition';
 import { useEffect } from 'react';
 import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
+
+import logo from '../img/logo.svg'
+import home from '../img/home.svg'
+import catalogicon from '../img/shopping-cart.svg'
+import cart from '../img/shopping-bag.svg'
 
 function Navigation() {
     const [sticky, setSticky] = useState(false)

@@ -3,10 +3,11 @@ import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
-import menu from '../img/menu.svg'
-import menuClose from '../img/menu-close.svg'
 import Pagination from "../comp/Pagination";
 import { apiKeys } from "../data/apiKeys";
+
+import menu from '../img/menu.svg'
+import menuClose from '../img/menu-close.svg'
 import search from '../img/search.svg'
 import cancel from '../img/cancel.svg'
 
@@ -27,10 +28,6 @@ function Catalog() {
     const [searchTerm, setSearchTerm] = useState("")
     const [preSearchTerm, setPreSearchTerm] = useState("")
     const [facetsColors, setFacetsColors] = useState("All")
-    // const [facetsPatterns, setFacetsPatterns] = useState("All")
-    console.log(facetsColors);
-    console.log(searchTerm);
-    console.log(categorieValue);
 
     useEffect(() => {
         fetch("https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/categories/list?lang=en&country=asia2", {
@@ -44,7 +41,6 @@ function Catalog() {
             .then(data => {
                 setCategories(data)
                 setCategoriesLoading(true)
-                console.log(data);
             })
     }, [])
 
@@ -63,8 +59,6 @@ function Catalog() {
                 setTotalPages(data.pagination ? data.pagination.numberOfPages : null)
                 setCatalogLoading(true)
                 setCurrentPage(0)
-                // setPreSearchTerm("")
-                console.log(data);
             })
     }, [categorieValue, sortBy, searchTerm, facetsColors])
 
@@ -101,7 +95,6 @@ function Catalog() {
     function deleteFilters() {
         setSortBy('stock')
         setFacetsColors("All")
-        // setFacetsPatterns("All")
     }
 
     return (
@@ -152,7 +145,7 @@ function Catalog() {
                             searchTerm ?
                                 (
                                     <div className="catalog-search-query sub-title">
-                                        <h1>{`Показаны результаты для: "${searchTerm}"`}</h1>
+                                        <h1>{`Results for: "${searchTerm}"`}</h1>
                                     </div>
                                 )
                                 :
@@ -171,8 +164,8 @@ function Catalog() {
                             <button style={preSearchTerm !== "" ? { display: 'block' } : { display: 'none' }} onClick={() => setSearchTerm("") || setPreSearchTerm("") || deleteFilters()} className="catalog-search-bar-cancel-button"><img src="" alt="" /><img src={cancel} alt="" /></button>
                         </div>
                         <div className="catalog-products-information">
-                            <div className="catalog-products-information-products-number info"><p>{`${products.pagination ? (products.pagination.totalNumberOfResults) : (0)} товар(-а, -ов)`}</p></div>
-                            <div className="catalog-products-information-pages-number info"><p>{`${products.pagination ? (products.pagination.numberOfPages) : (0)} страниц`}</p></div>
+                            <div className="catalog-products-information-products-number info"><p>{`${products.pagination ? (products.pagination.totalNumberOfResults) : (0)} products`}</p></div>
+                            <div className="catalog-products-information-pages-number info"><p>{`${products.pagination ? (products.pagination.numberOfPages) : (0)} pages`}</p></div>
                         </div>
                     </div>
                     <div className="catalog-menu">
@@ -282,16 +275,6 @@ function Catalog() {
                                                                 :
                                                                 null
                                                         }
-                                                        {/* {
-                                                            product.swatchesTotal - product.rgbColors.length !== 0 ?
-                                                                (
-                                                                    <div className="catalog-product-card-colors-more sub-title">
-                                                                        <h1>{`+${product.swatchesTotal - product.rgbColors.length}`}</h1>
-                                                                    </div>
-                                                                )
-                                                                :
-                                                                null
-                                                        } */}
                                                     </div>
                                                     <div className="catalog-product-card-categorie-title note">
                                                         <span>{product.categoryName}</span>
@@ -328,12 +311,11 @@ function Catalog() {
                                 catalogLoading ? (products.results ?
                                     (products.results.length > 0 ? (<div className="catalog-products-pagination">
                                         <div className="catalog-products-pagination-info sub-info">
-                                            <h1>{`Сейчас вы находитесь на ${currentPage + 1} странице из ${totalPages} страниц`}</h1>
+                                            <h1>{`Showing ${currentPage + 1} page of ${totalPages} pages`}</h1>
                                         </div>
                                         <div className="catalog-products-pagination-line">
                                             <div style={{ width: `${products.results.length > 0 ? ((currentPage + 1) * 100 / totalPages) : (0)}%` }} className="catalog-products-pagination-line-active"></div>
                                         </div>
-                                        {/* <button disabled={products.results.length < 0 ? true : false} className="catalog-products-pagination-button button-first">загрузить еще изделия</button> */}
                                         {
                                             totalResults > 30 ? <Pagination pages={totalPages} nextPage={nextPage} currentPage={currentPage} /> : ''
                                         }

@@ -4,36 +4,15 @@ import { useEffect } from "react"
 import { useParams } from "react-router"
 import { Link } from "react-router-dom"
 import Slider from "react-slick";
+import { useHistory } from "react-router"
+
+import arrowBack from '../img/arrow-slider-2.svg'
 
 function Product() {
 
-    const settings = {
-        arrows: true,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        rows: 2,
-        responsive:
-            [
-                {
-                    breakpoint: 900,
-                    settings: {
-                        slidesToShow: 5,
-                        slidesToScroll: 1
-                    }
-                },
-                {
-                    breakpoint: 640,
-                    settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 1
-                    }
-                },
-            ]
-    }
+    const history = useHistory()
 
-    const settingsthree = {
+    const settings = {
         arrows: true,
         infinite: false,
         speed: 500,
@@ -105,6 +84,7 @@ function Product() {
                 <div className="product-inner inner">
                     {
                         productLoading ? (product ? (<div className="product-container">
+                            <button onClick={() => history.goBack()} className="product-goback-button"><img src={arrowBack} alt="" /></button>
                             <div className="product-center">
                                 <div className="product-left">
                                     {
@@ -130,9 +110,6 @@ function Product() {
                                 </div>
                                 <div className="product-right">
                                     <div className="product-information">
-                                        {/* <div className="product-information-sex sub-title">
-                                            <h1>{product.customerGroup}</h1>
-                                        </div> */}
                                         <div className="product-information-title title">
                                             <h1>{product.name}</h1>
                                         </div>
@@ -152,18 +129,11 @@ function Product() {
                                                     </div>
                                                 ))
                                             }
-                                            <Slider { ...settingsthree} className="product-information-articles-list">
+                                            <Slider {...settings} className="product-information-articles-list">
                                                 {
                                                     product.articlesList.map((article) => (
                                                         <Link className="product-information-article" to={'/catalog/product-' + article.code}>
                                                             <div className="product-information-article-img" style={article.code === id ? { border: '1px solid #000' } : null}>
-                                                                {/* {
-                                                                    article.galleryDetails.filter(item => (
-                                                                        item.assetType === "DESCRIPTIVESTILLLIFE"
-                                                                    )).map((articleImage) => (
-                                                                        <img src={articleImage.url + '&call=url%5Bfile:/product/main%5D'} alt="" />
-                                                                    ))
-                                                                } */}
                                                                 <img src={article.galleryDetails.filter(item => (item.assetType === "DESCRIPTIVESTILLLIFE"))[0].url + '&call=url%5Bfile:/product/main%5D'} alt="" />
                                                             </div>
                                                         </Link>
@@ -171,29 +141,6 @@ function Product() {
                                                 }
                                             </Slider>
                                         </div>
-                                        {/* <div className="product-information-tags">
-                                            <div className="product-information-tags-title sub-title">
-                                                <h1>Tags</h1>
-                                            </div>
-                                            <div className="product-information-tags-list">
-                                                {
-                                                    product.newArrival ?
-                                                        <div className="product-information-tag note">
-                                                            <span>New Arrival</span>
-                                                        </div>
-                                                        :
-                                                        null
-                                                }
-                                                {
-                                                    product.newProduct ?
-                                                        <div className="product-information-tag note">
-                                                            <span>New Product</span>
-                                                        </div>
-                                                        :
-                                                        null
-                                                }
-                                            </div>
-                                        </div> */}
                                     </div>
                                 </div>
                             </div>

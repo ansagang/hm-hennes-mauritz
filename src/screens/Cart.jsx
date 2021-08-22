@@ -10,10 +10,10 @@ function Cart() {
             <div className="container">
                 <div className="cart-inner inner">
                     <div className="cart-title title centered">
-                        <h1>Корзина</h1>
+                        <h1>Cart</h1>
                     </div>
                     <div className="cart-info info">
-                        <p>{`${favouritesList.length} товаров`}</p>
+                        <p>{`${favouritesList.length} products`}</p>
                     </div>
                     {
                         favouritesList.length > 0 ?
@@ -60,12 +60,12 @@ function Cart() {
                             (
                                 <div className="cart-products-list-empty content">
                                     <div className="cart-products-list-empty-title title">
-                                        <h1>На данный момент корзина пуста</h1>
+                                        <h1>Save your favourite items</h1>
                                     </div>
                                     <div className="cart-products-list-empty-info info">
-                                        <p>Хотите сохранить понравившиеся товары? Просто нажмите на значок в виде сердца на товаре, после чего этот товар появится здесь.</p>
+                                        <p>Want to save the items you love? Just click on the heart icon found on the product image and it will show up here.</p>
                                     </div>
-                                    <Link to="/catalog" className="cart-products-list-empty-button"><button className="button-first">Посмотреть сейчас</button></Link>
+                                    <Link to="/catalog" className="cart-products-list-empty-button"><button className="button-first">Browse now</button></Link>
                                 </div>
                             )
                     }

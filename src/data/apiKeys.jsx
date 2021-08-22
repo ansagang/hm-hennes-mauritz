@@ -19,17 +19,29 @@ export const apiKeys = [
     // },
     {
         api_key:"3ea17879f4mshc18f5dedbe10538p114468jsn8729550e66a6"
+    },
+    {
+        api_key:"8b2dc6dcdfmsh85df521f58b9594p19a3ddjsn7ca70a8113d3"
+    },
+    {
+        api_key:"b8d4cced20msh304ec5823ceb5a0p10cadbjsn850190fefe35"
+    },
+    {
+        api_key:"09ab691186msh6173e50e79eb6dep1eefcfjsn143ed2dbc105"
+    },
+    {
+        api_key:"357268ca33msh7b78371dbf4d87dp130b70jsnabeed5d71646"
     }
 ]
 
 export const qa = [
     {
         question:"Is the quality of your products good?",
-        answer:"Yes, of course! We offer only great quality"
+        answer:"Yes, of course! We offer only great quality products."
     },
     {
         question:"Who is the owner of Hennes & Maurtiz?",
-        answer:"The owner of Hennes & Mauritz is Stefan Persson"
+        answer:"The owner of Hennes & Mauritz is Stefan Persson."
     },
     {
         question:"How many products are in your product database?",
