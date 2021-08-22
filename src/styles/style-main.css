@@ -154,6 +154,10 @@ header.active{
     max-width: 32%;
 }
 
+.catalog-menu-categorie-subcategorie-item.active{
+    color: var(--company-color-red);
+}
+
 .catalog-product-card-img-onhover{
     display: none;
     width: 100%;
@@ -335,16 +339,19 @@ display: flex;
 .catalog-products-pagination-links{
     margin-top: 15px;
     display: flex;
-    flex-flow: wrap row;
-    justify-self: center;
+    overflow: auto;
+    justify-content: flex-start;
+}
+.catalog-products-pagination-links::-webkit-scrollbar-thumb{
+    background-color: var(--company-color-black) !important;
 }
 
 .catalog-products-pagination-link{
     margin-right: 7px;
     margin-bottom: 10px;
     /* display: inline-block; */
-    width: 30px;
-    height: 30px;
+    padding: 5px 10px;
+    width: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -712,4 +719,61 @@ display: flex;
     background-position: 0 100%;
     background-size: auto;
     background-repeat: repeat-x;
+}
+
+.about-list{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.about-item{
+    width: 30%;
+}
+
+.about-item-title{
+    margin-bottom: 15px;
+}
+
+.qa-card{
+    width: 100%;
+    padding: 40px 20px;
+    background-color: var(--company-color-black);
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.qa-card .sub-title,
+.qa-card .info{
+    color: var(--background-color);
+}
+
+.qa-card-answer{
+    display: none;
+    border-top: 1px solid var(--background-color);
+    margin-top: 30px;
+    padding: 10px 0;
+}
+
+.qa-card.active .qa-card-answer{
+    display: block;
+}
+
+.qa-card.active .qa-card-question-icon{
+    transform: rotate(180deg);
+}
+
+.qa-card-question-icon{
+    transition: 0.3s ease-in-out;
+}
+
+.qa-card-question-icon img{
+    width: 100%;
+    height: 100%;
+}
+
+.qa-card-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

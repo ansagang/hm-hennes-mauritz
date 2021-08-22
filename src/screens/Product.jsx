@@ -133,7 +133,7 @@ function Product() {
                                         {/* <div className="product-information-sex sub-title">
                                             <h1>{product.customerGroup}</h1>
                                         </div> */}
-                                        <div className="product-information-title sub-title">
+                                        <div className="product-information-title title">
                                             <h1>{product.name}</h1>
                                         </div>
                                         <div className="product-information-info info">
@@ -152,7 +152,7 @@ function Product() {
                                                     </div>
                                                 ))
                                             }
-                                            <Slider {...product.articlesList.length > 4 ? { ...settings } : { ...settingsthree }} className="product-information-articles-list">
+                                            <Slider { ...settingsthree} className="product-information-articles-list">
                                                 {
                                                     product.articlesList.map((article) => (
                                                         <Link className="product-information-article" to={'/catalog/product-' + article.code}>

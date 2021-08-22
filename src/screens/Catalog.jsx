@@ -49,7 +49,7 @@ function Catalog() {
     }, [])
 
     useEffect(() => {
-        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
+        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": `${apiKeys[0].api_key}`,
@@ -70,7 +70,7 @@ function Catalog() {
 
     let nextPage = (pageNumber) => {
         window.scrollTo(0, 0)
-        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
+        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": `${apiKeys[0].api_key}`,
@@ -113,7 +113,7 @@ function Catalog() {
                         <span style={categorieValue ? null : { color: '#c11a2b' }} onClick={() => setCategorieValue() || setCategorieName() || setSearchTerm("")} className={categorieValue === undefined ? 'catalog-categorie-button link active' : 'catalog-categorie-button link'}>All</span>
                         {
                             categoriesLoading ? (categories ? (categories.length > 0 ? (categories.map((categorie, i) => (
-                                <div className={categorieValue === categorie.tagCodes[0] ? 'catalog-categorie active' : 'catalog-categorie'} key={i}>
+                                <div className='catalog-categorie' key={i}>
                                     <span className="catalog-categorie-button link" style={categorie.tagCodes.length > 0 ? (categorieValue === categorie.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => categorie.tagCodes.length > 0 ? (setCategorieValue(categorie.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName() || setSearchTerm("") || setPreSearchTerm("")) : null}>{categorie.CatName}</span>
                                     {
                                         categorie.CategoriesArray ? (products.results ? <div className="catalog-categorie-subcategories">
@@ -195,7 +195,7 @@ function Catalog() {
                                                                     <div className="catalog-menu-categorie-subcategorie-items">
                                                                         {
                                                                             CategoriesItem.CategoriesArray ? CategoriesItem.CategoriesArray.map((SubCategorieItem) => (
-                                                                                <span style={SubCategorieItem.tagCodes.length > 0 ? (categorieValue === SubCategorieItem.tagCodes[0] ? { color: '#c11a2b' } : null) : null} onClick={() => SubCategorieItem.tagCodes.length > 0 ? (setCategorieValue(SubCategorieItem.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName(CategoriesItem.CatName + ' / ' + SubCategorieItem.CatName)) : null} className="catalog-menu-categorie-subcategorie-item link">{SubCategorieItem.CatName}</span>
+                                                                                <div className={SubCategorieItem.tagCodes.length > 0 ? (categorieValue === SubCategorieItem.tagCodes[0] ? 'catalog-menu-categorie-subcategorie-item link active' : 'catalog-menu-categorie-subcategorie-item link') : null} onClick={() => SubCategorieItem.tagCodes.length > 0 ? (setCategorieValue(SubCategorieItem.tagCodes[0]) || setCategorieName(categorie.CatName) || setSubCategorieName(CategoriesItem.CatName + ' / ' + SubCategorieItem.CatName)) : null}><span>{SubCategorieItem.CatName}</span></div>
                                                                             ))
                                                                                 :
                                                                                 null
@@ -223,9 +223,9 @@ function Catalog() {
                                             setSortBy(selectedSort)
                                         }} name="" id="" className="catalog-products-selection">
                                             <option className="catalog-products-selection-option" value="stock">Stock</option>
-                                            <option className="catalog-products-selection-option" value="ascPrice">ascPrice</option>
-                                            <option className="catalog-products-selection-option" value="descPrice">descPrice</option>
-                                            <option className="catalog-products-selection-option" value="newProduct">newProduct</option>
+                                            <option className="catalog-products-selection-option" value="ascPrice">Lowest Price</option>
+                                            <option className="catalog-products-selection-option" value="descPrice">Highest Price</option>
+                                            <option className="catalog-products-selection-option" value="newProduct">New Products</option>
                                         </select>
                                         {
                                             categorieValue ? (<select value={facetsColors} onChange={(e) => {
@@ -236,7 +236,7 @@ function Catalog() {
                                                 {
                                                     products.facets ? (products.facets[14] ? products.facets.filter(item => item.code === 'colorWithNames').map((facet) => (
                                                         facet.values.map((value) => (
-                                                            <option className="catalog-products-selection-option" value={value.code}>{value.code}</option>
+                                                            <option className="catalog-products-selection-option" value={value.code}>{value.code.split('_')[0]}</option>
                                                         ))
                                                     )) : null) : null
                                                 }

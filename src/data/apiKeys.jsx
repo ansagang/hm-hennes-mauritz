@@ -21,3 +21,18 @@ export const apiKeys = [
         api_key:"3ea17879f4mshc18f5dedbe10538p114468jsn8729550e66a6"
     }
 ]
+
+export const qa = [
+    {
+        question:"Is the quality of your products good?",
+        answer:"Yes, of course! We offer only great quality"
+    },
+    {
+        question:"Who is the owner of Hennes & Maurtiz?",
+        answer:"The owner of Hennes & Mauritz is Stefan Persson"
+    },
+    {
+        question:"How many products are in your product database?",
+        answer:"Our database has more than 200000 products."
+    }
+]
