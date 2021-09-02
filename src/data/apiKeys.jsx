@@ -20,9 +20,9 @@ export const apiKeys = [
     // {
     //     api_key:"3ea17879f4mshc18f5dedbe10538p114468jsn8729550e66a6"
     // },
-    {
-        api_key:"8b2dc6dcdfmsh85df521f58b9594p19a3ddjsn7ca70a8113d3"
-    },
+    // {
+    //     api_key:"8b2dc6dcdfmsh85df521f58b9594p19a3ddjsn7ca70a8113d3"
+    // },
     {
         api_key:"b8d4cced20msh304ec5823ceb5a0p10cadbjsn850190fefe35"
     },
