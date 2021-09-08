@@ -23,9 +23,9 @@ export const apiKeys = [
     // {
     //     api_key:"8b2dc6dcdfmsh85df521f58b9594p19a3ddjsn7ca70a8113d3"
     // },
-    {
-        api_key:"b8d4cced20msh304ec5823ceb5a0p10cadbjsn850190fefe35"
-    },
+    // {
+    //     api_key:"b8d4cced20msh304ec5823ceb5a0p10cadbjsn850190fefe35"
+    // },
     {
         api_key:"09ab691186msh6173e50e79eb6dep1eefcfjsn143ed2dbc105"
     },
