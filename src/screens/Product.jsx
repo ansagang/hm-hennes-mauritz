@@ -278,7 +278,7 @@ function Product() {
                             </Slider>
                         </div>)
                             :
-                            <div className="catalog-list-error content">
+                             <div className="catalog-list-error content">
                                 <div className="catalog-list-error-title title">
                                     <h1>Connection Failed</h1>
                                 </div>
