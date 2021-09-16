@@ -494,16 +494,20 @@ header.active{
 }
 
 .product-details-list{
-    display: flex !important;
+    display: flex;
     flex-flow: row wrap;
+    margin-bottom: 10px;
+}
+.product-details-list::-webkit-scrollbar{
+    display: none;
 }
 
 .product-detail{
     width: 230px;
     padding: 20px;
     background-color: var(--company-color-black);
-    margin-bottom: 20px;
     margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .product-detail .sub-title{
@@ -526,6 +530,12 @@ header.active{
 
 .product-details{
     margin-top: 20px;
+}
+
+.product-detail-list-navigation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /* home */

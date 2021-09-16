@@ -149,118 +149,118 @@ function Product() {
                                     <h1>Details</h1>
                                 </div>
                                 <div className="product-details-list">
-                                    {
-                                        product.fits ?
-                                            <div className="product-detail">
-                                                <div className="product-detail-title sub-title">
-                                                    <h1>Fit</h1>
-                                                </div>
-                                                {
-                                                    product.fits.map((fit) => (
-                                                        <div className="product-detail-info info">
-                                                            <p>{fit}</p>
-                                                        </div>
-                                                    ))
-                                                }
-                                            </div>
-                                            :
-                                            null
-                                    }
-                                    {
-                                        product.lengthCollection ?
-                                            (product.lengthCollection.length > 0 ? <div className="product-detail">
-                                                {
-                                                    product.lengthCollection.map((length) => (
-                                                        <div className="product-detail-item">
-                                                            <div className="product-detail-item-title sub-title">
-                                                                <h1>{length.code}</h1>
-                                                            </div>
-                                                            {
-                                                                length.value.map((i) => (
-                                                                    <div className="product-detail-item-info info">
-                                                                        <p>{i}</p>
-                                                                    </div>
-                                                                ))
-                                                            }
-                                                        </div>
-                                                    ))
-                                                }
-                                            </div> : null)
-                                            :
-                                            null
-                                    }
-                                    <div className="product-detail">
-                                        <div className="product-detail-title sub-title">
-                                            <h1>Care Instructions</h1>
-                                        </div>
                                         {
-                                            product.articlesList.filter(item => (
-                                                item.code === id
-                                            )).map((article) => (
-                                                article.careInstructions ?
-                                                    (article.careInstructions.length > 0 ? article.careInstructions.map((careInstruction) => (
-                                                        careInstruction !== "N/A" ?
+                                            product.fits ?
+                                                <div className="product-detail">
+                                                    <div className="product-detail-title sub-title">
+                                                        <h1>Fit</h1>
+                                                    </div>
+                                                    {
+                                                        product.fits.map((fit) => (
                                                             <div className="product-detail-info info">
-                                                                <p>{careInstruction}</p>
-                                                            </div>
-                                                            :
-                                                            null
-                                                    )) : <div className="product-detail-info info">
-                                                        <p>None</p>
-                                                    </div>)
-                                                    :
-                                                    null
-                                            ))
-                                        }
-                                    </div>
-                                    <div className="product-detail">
-                                        <div className="product-detail-title sub-title">
-                                            <h1>Materials</h1>
-                                        </div>
-                                        {
-                                            product.articlesList.filter(item => (
-                                                item.code === id
-                                            )).map((article) => (
-                                                article.compositions ?
-                                                    article.compositions.map((composition) => (
-                                                        composition.materials.map((material) => (
-                                                            <div className="product-detail-info info">
-                                                                <p>{`${material.name} ${material.percentage}%`}</p>
+                                                                <p>{fit}</p>
                                                             </div>
                                                         ))
-                                                    ))
-                                                    :
-                                                    null
-                                            ))
+                                                    }
+                                                </div>
+                                                :
+                                                null
                                         }
-                                    </div>
-                                    <div className="product-detail">
-                                        <div className="product-detail-title sub-title">
-                                            <h1>Product Code</h1>
-                                        </div>
-                                        <div className="product-detail-info info">
-                                            <p>{id}</p>
-                                        </div>
-                                    </div>
-                                    {
-                                        product.articlesList.filter(item => (
-                                            item.code === id
-                                        )).map((article) => article.pattern ? <div className="product-detail">
+                                        {
+                                            product.lengthCollection ?
+                                                (product.lengthCollection.length > 0 ? <div className="product-detail">
+                                                    {
+                                                        product.lengthCollection.map((length) => (
+                                                            <div className="product-detail-item">
+                                                                <div className="product-detail-item-title sub-title">
+                                                                    <h1>{length.code.split('L')[0].charAt(0).toUpperCase() + length.code.slice(1).split('L')[0]}</h1>
+                                                                </div>
+                                                                {
+                                                                    length.value.map((i) => (
+                                                                        <div className="product-detail-item-info info">
+                                                                            <p>{i}</p>
+                                                                        </div>
+                                                                    ))
+                                                                }
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </div> : null)
+                                                :
+                                                null
+                                        }
+                                        <div className="product-detail">
                                             <div className="product-detail-title sub-title">
-                                                <h1>Pattern</h1>
+                                                <h1>Care Instructions</h1>
                                             </div>
                                             {
-                                                article.pattern ?
-                                                    <div className="product-detail-info info">
-                                                        <p>{article.pattern}</p>
-                                                    </div>
-                                                    :
-                                                    null
+                                                product.articlesList.filter(item => (
+                                                    item.code === id
+                                                )).map((article) => (
+                                                    article.careInstructions ?
+                                                        (article.careInstructions.length > 0 ? article.careInstructions.map((careInstruction) => (
+                                                            careInstruction !== "N/A" ?
+                                                                <div className="product-detail-info info">
+                                                                    <p>{careInstruction}</p>
+                                                                </div>
+                                                                :
+                                                                null
+                                                        )) : <div className="product-detail-info info">
+                                                            <p>None</p>
+                                                        </div>)
+                                                        :
+                                                        null
+                                                ))
                                             }
                                         </div>
-                                            :
-                                            null)
-                                    }
+                                        <div className="product-detail">
+                                            <div className="product-detail-title sub-title">
+                                                <h1>Materials</h1>
+                                            </div>
+                                            {
+                                                product.articlesList.filter(item => (
+                                                    item.code === id
+                                                )).map((article) => (
+                                                    article.compositions ?
+                                                        article.compositions.map((composition) => (
+                                                            composition.materials.map((material) => (
+                                                                <div className="product-detail-info info">
+                                                                    <p>{`${material.name} ${material.percentage}%`}</p>
+                                                                </div>
+                                                            ))
+                                                        ))
+                                                        :
+                                                        null
+                                                ))
+                                            }
+                                        </div>
+                                        <div className="product-detail">
+                                            <div className="product-detail-title sub-title">
+                                                <h1>Product Code</h1>
+                                            </div>
+                                            <div className="product-detail-info info">
+                                                <p>{id}</p>
+                                            </div>
+                                        </div>
+                                        {
+                                            product.articlesList.filter(item => (
+                                                item.code === id
+                                            )).map((article) => article.pattern ? <div className="product-detail">
+                                                <div className="product-detail-title sub-title">
+                                                    <h1>Pattern</h1>
+                                                </div>
+                                                {
+                                                    article.pattern ?
+                                                        <div className="product-detail-info info">
+                                                            <p>{article.pattern}</p>
+                                                        </div>
+                                                        :
+                                                        null
+                                                }
+                                            </div>
+                                                :
+                                                null)
+                                        }
                                 </div>
                             </div>
                             <Slider {...settingstwo} className="product-big-gallery">
@@ -278,7 +278,7 @@ function Product() {
                             </Slider>
                         </div>)
                             :
-                             <div className="catalog-list-error content">
+                            <div className="catalog-list-error content">
                                 <div className="catalog-list-error-title title">
                                     <h1>Connection Failed</h1>
                                 </div>
