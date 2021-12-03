@@ -61,6 +61,7 @@ function Product() {
     const [productLoading, setProductLoading] = useState(false)
 
     useEffect(() => {
+        setProductLoading(false)
         fetch("https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/detail?lang=en&productcode=" + id + "&country=asia2", {
             "method": "GET",
             "headers": {

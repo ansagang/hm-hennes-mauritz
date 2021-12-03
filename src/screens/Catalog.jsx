@@ -30,6 +30,7 @@ function Catalog() {
     const [facetsColors, setFacetsColors] = useState("All")
 
     useEffect(() => {
+        setCategoriesLoading(false)
         fetch("https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/categories/list?lang=en&country=asia2", {
             "method": "GET",
             "headers": {
@@ -45,6 +46,7 @@ function Catalog() {
     }, [])
 
     useEffect(() => {
+        setCatalogLoading(false)
         fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
             "method": "GET",
             "headers": {
