@@ -31,7 +31,7 @@ function Catalog() {
 
     useEffect(() => {
         setCategoriesLoading(false)
-        fetch("https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/categories/list?lang=en&country=asia2", {
+        fetch("https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/categories/list?lang=en&country=us", {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": `${apiKeys[0].api_key}`,
@@ -47,7 +47,7 @@ function Catalog() {
 
     useEffect(() => {
         setCatalogLoading(false)
-        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
+        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=us&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=us&lang=en&currentpage=0&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=us&lang=en&currentpage=0&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=us&lang=en&currentpage=0&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": `${apiKeys[0].api_key}`,
@@ -56,6 +56,7 @@ function Catalog() {
         })
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 setProducts(data)
                 setTotalResults(data.pagination ? data.pagination.totalNumberOfResults : null)
                 setTotalPages(data.pagination ? data.pagination.numberOfPages : null)
@@ -66,7 +67,7 @@ function Catalog() {
 
     let nextPage = (pageNumber) => {
         window.scrollTo(0, 0)
-        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=" + pageNumber + "&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
+        fetch(categorieValue ? (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=us&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "&colorWithNames=" + facetsColors + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=us&lang=en&currentpage=" + pageNumber + "&pagesize=30&categories=" + categorieValue + "&sortBy=" + sortBy + "") : (facetsColors !== "All" ? "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=us&lang=en&currentpage=" + pageNumber + "&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + "" : "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=us&lang=en&currentpage=" + pageNumber + "&pagesize=20&sortBy=" + sortBy + "&query=" + searchTerm + ""), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": `${apiKeys[0].api_key}`,

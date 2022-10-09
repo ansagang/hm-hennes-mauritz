@@ -24,7 +24,7 @@ function Home() {
 
     useEffect(() => {
         setCatalogLoading(false)
-        fetch(("https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=asia2&lang=en&currentpage=0&pagesize=8&sortBy=newProduct"), {
+        fetch(("https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list?country=us&lang=en&currentpage=0&pagesize=8&sortBy=newProduct"), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": `${apiKeys[0].api_key}`,
